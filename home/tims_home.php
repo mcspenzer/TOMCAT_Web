@@ -66,7 +66,7 @@
                 </a>
             </div>
             <div class="column">
-                <a href="#">
+                <a href="../reports/tims_reports.php">
                     <div class="ui centered card">
                         <div class="centered image" style="text-align: center">
                             <i class="massive clipboard list centered icon" style="display: inline-block;margin-top:0.5em;margin-bottom:0.5em"></i>
