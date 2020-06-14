@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIMS | Users</title>
+    <title>TIMS | Inventory</title>
     <link rel="stylesheet" type="text/css" href="../assets/ext/semantic/semantic.min.css" />
 </head>
 
@@ -30,9 +30,9 @@
     </div>
 
     <h2 class="ui header" style="margin-top: 5em;margin-left: 2em">
-        <i class="users centered icon"></i>
+        <i class="boxes centered icon"></i>
         <div class="content">
-            Users
+            Inventory
         </div>
     </h2>
 
@@ -49,7 +49,7 @@
                         <!-- <div class="ui label">51</div> -->
                     </a>
                     <div class="item">
-                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewUser()">Add new User</div>
+                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewItem()">Add new Item</div>
                     </div>
                 </div>
             </div>
@@ -57,12 +57,11 @@
                 <table class="ui very basic collapsing celled table" style="margin-left: -32em">
                     <thead>
                         <tr>
-                            <th>User ID</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Position</th>
-                            <th>Contact Number</th>
-                            <th>E-mail</th>
+                            <th>Serial Number</th>
+                            <th>Item Name</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Owner</th>
                             <th>Date created</th>
                             <th>Date modified</th>
                             <th>Actions</th>
@@ -73,24 +72,21 @@
                             <td>
                                 <h4 class="ui image header">
                                     <div class="content">
-                                        TOMCAT-001
+                                        TC_ITEM-001
                                     </div>
                                 </h4>
                             </td>
                             <td>
-                                Doe
+                                Camera 1
                             </td>
                             <td>
-                                John
+                                Camera
                             </td>
                             <td>
-                                Executive Board
+                                Available
                             </td>
                             <td>
-                                +63 917 999 9999
-                            </td>
-                            <td>
-                                jdoe@example.com
+                                John Doe
                             </td>
                             <td>
                                 05/16/2020
@@ -106,24 +102,21 @@
                             <td>
                                 <h4 class="ui image header">
                                     <div class="content">
-                                        TOMCAT-002
+                                        TC_ITEM-002
                                     </div>
                                 </h4>
                             </td>
                             <td>
-                                Doe
+                                Camera 2
                             </td>
                             <td>
-                                Jane
+                                Camera
                             </td>
                             <td>
-                                Executive Board
+                                In User
                             </td>
                             <td>
-                                +63 917 111 9999
-                            </td>
-                            <td>
-                                janedoe@example.com
+                                John Doe
                             </td>
                             <td>
                                 05/16/2020
@@ -139,24 +132,60 @@
                             <td>
                                 <h4 class="ui image header">
                                     <div class="content">
-                                        TOMCAT-003
+                                        TC_ITEM-001
                                     </div>
                                 </h4>
                             </td>
                             <td>
-                                12
+                                Camera 1
+                            </td>
+                            <td>
+                                Camera
+                            </td>
+                            <td>
+                                Available
+                            </td>
+                            <td>
+                                John Doe
+                            </td>
+                            <td>
+                                05/16/2020
+                            </td>
+                            <td>
+                                05/16/2020
+                            </td>
+                            <td>
+                                <span><i class="pencil alternate centered icon"></i>| <i class="trash alternate centered icon"></i></span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <h4 class="ui image header">
                                     <div class="content">
-                                        TOMCAT-004
+                                        TC_ITEM-001
                                     </div>
                                 </h4>
                             </td>
                             <td>
-                                11
+                                Camera 1
+                            </td>
+                            <td>
+                                Camera
+                            </td>
+                            <td>
+                                Available
+                            </td>
+                            <td>
+                                John Doe
+                            </td>
+                            <td>
+                                05/16/2020
+                            </td>
+                            <td>
+                                05/16/2020
+                            </td>
+                            <td>
+                                <span><i class="pencil alternate centered icon"></i>| <i class="trash alternate centered icon"></i></span>
                             </td>
                         </tr>
                     </tbody>
@@ -169,28 +198,24 @@
     <div class="ui modal" id="createNewUser">
         <i class="close icon"></i>
         <div class="header">
-            Create new user
+            Create new Item
         </div>
         <div class="ui container" style="padding: 1em">
         <form class="ui form">
             <div class="field">
-                <label>Last Name</label>
+                <label>Serial Number</label>
                 <input type="text" name="first-name" placeholder="First Name">
             </div>
             <div class="field">
-                <label>First Name</label>
+                <label>Item Name</label>
                 <input type="text" name="last-name" placeholder="Last Name">
             </div>
             <div class="field">
-                <label>Position</label>
+                <label>Type</label>
                 <input type="text" name="last-name" placeholder="Last Name">
             </div>
             <div class="field">
-                <label>Contact Number</label>
-                <input type="text" name="last-name" placeholder="Last Name">
-            </div>
-            <div class="field">
-                <label>Email</label>
+                <label>Owner</label>
                 <input type="text" name="last-name" placeholder="Last Name">
             </div>
             <button class="ui button" type="submit">Submit</button>
@@ -201,7 +226,7 @@
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
     <script src='../assets/ext/semantic/semantic.min.js'></script>
     <script>
-        function createNewUser() {
+        function createNewItem() {
             $('.ui.modal')
                 .modal('show');
         }
