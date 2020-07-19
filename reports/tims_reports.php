@@ -10,34 +10,7 @@
 
 <body>
 
-    <div class="ui fixed menu">
-        <div class="ui container">
-            <a href="#" class="header item">
-                <img class="logo" src="https://via.placeholder.com/150" style="margin-right:0.5em">
-                TIMS | TOMCAT Information Management System
-            </a>
-
-            <div class="header item right floated ui simple dropdown item">
-                <img class="ui avatar image " src="https://via.placeholder.com/150">
-                <span>Username</span> <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="#">My Profile</a>
-                    <a class="item" href="#">Settings</a>
-                    <div class="divider"></div>
-                    <div class="header">Logout</div>
-                    <div class="item">
-                        <i class="dropdown icon"></i>
-                        Sub Menu
-                        <div class="menu">
-                            <a class="item" href="#">Link Item</a>
-                            <a class="item" href="#">Link Item</a>
-                        </div>
-                    </div>
-                    <a class="item" href="#">Link Item</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php require '../html/tims_header.php'; ?>
 
     <div class="ui middle aligned center aligned" style="margin-top: 10em">
         <div class="ui two column doubling stackable grid container">

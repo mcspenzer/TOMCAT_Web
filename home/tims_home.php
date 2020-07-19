@@ -10,25 +10,7 @@
 
 <body>
 
-    <div class="ui fixed menu">
-        <div class="ui container">
-            <a href="#" class="header item">
-                <img class="logo" src="https://via.placeholder.com/150" style="margin-right:0.5em">
-                TIMS | TOMCAT Information Management System
-            </a>
-
-            <div class="header item right floated ui simple dropdown item">
-                <img class="ui avatar image " src="https://via.placeholder.com/150" id="user-profile-display-photo">
-                <span id="user-profile-first-name">Username</span> <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="#">My Profile</a>
-                    <a class="item" href="#">Settings</a>
-                    <div class="divider"></div>
-                    <a class="item" href="#" onclick="logoutUser()"><strong>Logout</strong></a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php require '../html/tims_header.php'; ?>
 
     <div class="ui middle aligned center aligned" style="margin-top: 10em">
         <div class="ui three column doubling stackable grid container">
@@ -86,6 +68,8 @@
 
         if (!firstName && !lastName && !email & !displayPhoto) {
             console.log('- Session not initiated');
+            sessionStorage.clear();
+            window.location.replace("../login/tims_login.php");
         } else {
             $('#user-profile-first-name').html(firstName + ' ' + lastName);
             $('#user-profile-display-photo').attr('src', '../users/process/' + displayPhotoParsed);
