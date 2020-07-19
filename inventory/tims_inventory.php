@@ -22,11 +22,11 @@
         <div class="ui two column doubling stackable grid container">
             <div class="column">
                 <div class="ui vertical menu" style="margin-top: 3em; margin-left:-7em">
-                    <a class="active teal item">
-                        Go to Inventory
+                    <a class="item" href="../users/tims_users.php">
+                        Go to Users
                         <!-- <div class="ui teal left pointing label">1</div> -->
                     </a>
-                    <a class="item">
+                    <a class="item" href="../reports/tims_reports.php">
                         Go to Reports
                         <!-- <div class="ui label">51</div> -->
                     </a>
@@ -183,25 +183,25 @@
             Create new Item
         </div>
         <div class="ui container" style="padding: 1em">
-        <form class="ui form">
-            <div class="field">
-                <label>Serial Number</label>
-                <input type="text" name="first-name" placeholder="First Name">
-            </div>
-            <div class="field">
-                <label>Item Name</label>
-                <input type="text" name="last-name" placeholder="Last Name">
-            </div>
-            <div class="field">
-                <label>Type</label>
-                <input type="text" name="last-name" placeholder="Last Name">
-            </div>
-            <div class="field">
-                <label>Owner</label>
-                <input type="text" name="last-name" placeholder="Last Name">
-            </div>
-            <button class="ui button" type="submit">Submit</button>
-        </form>
+            <form class="ui form">
+                <div class="field">
+                    <label>Serial Number</label>
+                    <input type="text" name="first-name" placeholder="First Name">
+                </div>
+                <div class="field">
+                    <label>Item Name</label>
+                    <input type="text" name="last-name" placeholder="Last Name">
+                </div>
+                <div class="field">
+                    <label>Type</label>
+                    <input type="text" name="last-name" placeholder="Last Name">
+                </div>
+                <div class="field">
+                    <label>Owner</label>
+                    <input type="text" name="last-name" placeholder="Last Name">
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+            </form>
         </div>
     </div>
 

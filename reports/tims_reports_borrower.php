@@ -23,11 +23,11 @@
         <div class="ui three column doubling stackable grid container">
             <div class="column">
                 <div class="ui vertical menu" style="margin-top: 3em; margin-left:-7em">
-                    <a class="active teal item">
+                    <a class="item" href="../users/tims_users.php">
                         Go to Users
                         <!-- <div class="ui teal left pointing label">1</div> -->
                     </a>
-                    <a class="item">
+                    <a class="item" href="../inventory/tims_inventory.php">
                         Go to Inventory
                         <!-- <div class="ui label">51</div> -->
                     </a>
@@ -171,7 +171,7 @@
         $('#inline_calendar')
             .calendar();
 
-            // $('.ui.calendar').calendar('set date', '1998-11-16');
+        // $('.ui.calendar').calendar('set date', '1998-11-16');
     </script>
     <script src="../assets/js/header-methods.js"></script>
 </body>

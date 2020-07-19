@@ -23,11 +23,11 @@
         <div class="ui two column doubling stackable grid container">
             <div class="column" style="margin-right: -30em">
                 <div class="ui vertical menu" style="margin-top: 3em; margin-left:-7em">
-                    <a class="active teal item">
+                    <a class="item" href="../inventory/tims_inventory.php">
                         Go to Inventory
                         <!-- <div class="ui teal left pointing label">1</div> -->
                     </a>
-                    <a class="item">
+                    <a class="item" href="../reports/tims_reports.php">
                         Go to Reports
                         <!-- <div class="ui label">51</div> -->
                     </a>
