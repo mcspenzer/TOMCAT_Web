@@ -18,4 +18,4 @@ echo '<div class="ui fixed menu">
         </div>
     </div>
 </div>
-</div>'
+</div>';
