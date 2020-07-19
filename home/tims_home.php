@@ -18,22 +18,13 @@
             </a>
 
             <div class="header item right floated ui simple dropdown item">
-                <img class="ui avatar image " src="https://via.placeholder.com/150">
-                <span>Username</span> <i class="dropdown icon"></i>
+                <img class="ui avatar image " src="https://via.placeholder.com/150" id="user-profile-display-photo">
+                <span id="user-profile-first-name">Username</span> <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="#">My Profile</a>
                     <a class="item" href="#">Settings</a>
                     <div class="divider"></div>
-                    <div class="header">Logout</div>
-                    <div class="item">
-                        <i class="dropdown icon"></i>
-                        Sub Menu
-                        <div class="menu">
-                            <a class="item" href="#">Link Item</a>
-                            <a class="item" href="#">Link Item</a>
-                        </div>
-                    </div>
-                    <a class="item" href="#">Link Item</a>
+                    <a class="item" href="#" onclick="logoutUser()"><strong>Logout</strong></a>
                 </div>
             </div>
         </div>
@@ -80,7 +71,34 @@
         </div>
     </div>
 
-    <script src='../assets/ext/semantic/semantic.min.js'></script>
+    <script src="../assets/js/jquery-3.5.1.min.js"></script>
+	<script src='../assets/ext/semantic/semantic.min.js'></script>
+	<script src="../assets/js/jquery.validate.min.js"></script>
+	<script src="../assets/js/additional-methods.min.js"></script>
+    <script src='../assets/ext/fomatic/semantic.min.js'></script>
+    
+    <script>
+        var firstName = sessionStorage.getItem('user_first_name');
+        var lastName = sessionStorage.getItem('user_last_name');
+        var email = sessionStorage.getItem('user_email');
+        var displayPhoto = sessionStorage.getItem('user_display_photo');
+        var displayPhotoParsed = displayPhoto.substring(2);
+
+        if (!firstName && !lastName && !email & !displayPhoto) {
+            console.log('- Session not initiated');
+        } else {
+            $('#user-profile-first-name').html(firstName + ' ' + lastName);
+            $('#user-profile-display-photo').attr('src', '../users/process/' + displayPhotoParsed);
+        }
+
+        function logoutUser() {
+            sessionStorage.clear();
+            window.location.replace("../login/tims_login.php");
+        }
+
+    </script>
+
+
 </body>
 
 </html>

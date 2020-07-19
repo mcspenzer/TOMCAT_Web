@@ -11,6 +11,8 @@
 //     echo "File ".htmlspecialchars($fileKey)." is ".htmlspecialchars($fileValue)."<br>";
 // }
 
+// echo $_SERVER["CONTENT_TYPE"] . "\n\n";
+
 $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
 
 if (!isset($_FILES['display-photo'])) {
@@ -51,7 +53,8 @@ if (!isset($_FILES['display-photo'])) {
     }
 }
 
-function continueCreation() {
+function continueCreation()
+{
     $target_dir = "./displayphotouploads/";
     $target_file = $target_dir . basename($_FILES["display-photo"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -87,27 +90,64 @@ function continueCreation() {
     }
 }
 
-function createUser($target_file) {
+function createUser($target_file)
+{
     $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
 
-    $firstName = mysqli_real_escape_string($database, $_POST['first-name']);
-    $lastName = mysqli_real_escape_string($database, $_POST['last-name']);
-    $position = mysqli_real_escape_string($database, $_POST['position']);
-    $contactNumber = mysqli_real_escape_string($database, $_POST['contact-number']);
-    $email = mysqli_real_escape_string($database, $_POST['email']);
-    $password = mysqli_real_escape_string($database, $_POST['password']);
-    $password_hashed = md5($password);
+    // $firstName = mysqli_real_escape_string($database, $_POST['first-name']);
+    // $lastName = mysqli_real_escape_string($database, $_POST['last-name']);
+    // $position = mysqli_real_escape_string($database, $_POST['position']);
+    // $contactNumber = mysqli_real_escape_string($database, $_POST['contact-number']);
+    // $email = mysqli_real_escape_string($database, $_POST['email']);
+    // $password = mysqli_real_escape_string($database, $_POST['password']);
+    // $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql_insert = "INSERT INTO users (user_first_name, user_last_name, user_position, user_contact_number, user_email, user_password, user_display_photo, user_date_created, user_date_modified) VALUES ('$firstName', '$lastName', '$position', '$contactNumber', '$email', '$password_hashed', '$target_file', now(), now())";
+    $firstName = $_POST['first-name'];
+    $lastName = $_POST['last-name'];
+    $position = $_POST['position'];
+    $contactNumber = $_POST['contact-number'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-    if (mysqli_query($database, $sql_insert)) {
+    echo "User Password length server: " . strlen($password);
+    // $password_hashed = md5($password);
+
+    // TODO: Check if email exists
+
+    // echo "Password: " . $password . "\n";
+
+    // $sql_insert = "INSERT INTO users (user_first_name, user_last_name, user_position, user_contact_number, user_email, user_password, user_display_photo, user_date_created, user_date_modified) VALUES ('$firstName', '$lastName', '$position', '$contactNumber', '$email', '$password_hashed', '$target_file', now(), now())";
+
+    $sql_insert = "INSERT INTO users (
+        user_first_name, 
+        user_last_name, 
+        user_position, 
+        user_contact_number, 
+        user_email, 
+        user_password, 
+        user_display_photo, 
+        user_date_created, 
+        user_date_modified
+    ) VALUES (?,?,?,?,?,?,?,now(),now())";
+
+    $stmt = mysqli_stmt_init($database);
+
+    if (!mysqli_stmt_prepare($stmt, $sql_insert)) {
+        die (mysqli_error($database));
+    } else {
+        mysqli_stmt_bind_param($stmt, "sssssss", $firstName, $lastName, $position, $contactNumber, $email, $password_hashed, $target_file);
+    }
+
+    if (mysqli_stmt_execute($stmt)) {
         echo "User creation success";
     } else {
         echo "User creation failed";
     }
 }
 
-function img_checkReal() {
+function img_checkReal()
+{
     $check = getimagesize($_FILES["display-photo"]["tmp_name"]);
     if ($check !== false) {
         // echo "File is an image - " . $check["mime"] . ".";
@@ -118,7 +158,8 @@ function img_checkReal() {
     }
 }
 
-function img_checkSize() {
+function img_checkSize()
+{
     if ($_FILES["display-photo"]["size"] > 500000) {
         // echo "Sorry, your file is too large.";
         return false;
@@ -127,9 +168,10 @@ function img_checkSize() {
     return true;
 }
 
-function img_checkExtention($imageFileType) {
+function img_checkExtention($imageFileType)
+{
     // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
         // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         return false;
     }

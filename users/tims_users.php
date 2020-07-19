@@ -476,7 +476,7 @@
         </div>
         <div class="scrolling content">
             <div class="ui container" style="padding: 1em">
-                <form class="ui form" id="add-new-user" action="" method="POST">
+                <form class="ui form" id="add-new-user" action="" method="POST" accept-charset="UTF-8">
                     <div class="ui two aligned center aligned" style="margin-top: 2em">
                         <div class="ui two column doubling stackable grid container">
                             <div class="column">
@@ -1197,14 +1197,20 @@
 
                 var data = new FormData();
 
+                var passwordExtracted = $('#password').val();
+
                 data.append('display-photo', document.getElementById('display-photo').files[0]);
                 data.append('first-name', $('#first-name').val());
                 data.append('last-name', $('#last-name').val());
                 data.append('position', $('#position').val());
                 data.append('contact-number', $('#contact-number').val());
                 data.append('email', $('#email').val());
-                data.append('password', $('#password').val());
+                data.append('password', passwordExtracted);
                 data.append('confirm-password', $('#confirm-password').val());
+
+                console.log("User Password length client: " + passwordExtracted.length);
+
+                // xhttp.setRequestHeader('Content-type', 'multipart/form-data; boundary="---------------------------168261202239157867303724621122"');
 
                 xhttp.send(data);
             }
