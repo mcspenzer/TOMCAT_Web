@@ -32,7 +32,7 @@
                         <!-- <div class="ui label">51</div> -->
                     </a>
                     <div class="item">
-                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewUser()">Add new User</div>
+                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewUser()"><i class="user plus icon"></i>Add new User</div>
                     </div>
                 </div>
             </div>

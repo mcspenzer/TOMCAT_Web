@@ -31,7 +31,11 @@
                         <!-- <div class="ui label">51</div> -->
                     </a>
                     <div class="item">
-                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewItem()">Add new Item</div>
+                        <div class="ui secondary button centered" style="margin-left: 1.5em" onclick="createNewItem()"><i class="dolly icon"></i>Borrow Item&nbsp;&nbsp;&nbsp;</div>
+                        <div class="ui button centered" style="margin-left: 1.5em;margin-top: 1em" onclick="createNewItem()"><i class="warehouse icon"></i>Return Item&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    </div>
+                    <div class="item">
+                        <div class="ui primary button centered green" style="margin-left: 1.5em" onclick="createNewItem()"><i class="box icon"></i>Add new Item</div>
                     </div>
                 </div>
             </div>
@@ -39,6 +43,7 @@
                 <table class="ui very basic collapsing celled table" style="margin-left: -32em">
                     <thead>
                         <tr>
+                            <th>Item ID</th>
                             <th>Serial Number</th>
                             <th>Item Name</th>
                             <th>Type</th>
@@ -57,6 +62,9 @@
                                         TC_ITEM-001
                                     </div>
                                 </h4>
+                            </td>
+                            <td>
+                                e1238jhjjajsdasd09
                             </td>
                             <td>
                                 Camera 1
@@ -89,6 +97,9 @@
                                 </h4>
                             </td>
                             <td>
+                                XCASD-1236-ASAS001
+                            </td>
+                            <td>
                                 Camera 2
                             </td>
                             <td>
@@ -110,66 +121,7 @@
                                 <span><i class="pencil alternate centered icon"></i>| <i class="trash alternate centered icon"></i></span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <h4 class="ui image header">
-                                    <div class="content">
-                                        TC_ITEM-001
-                                    </div>
-                                </h4>
-                            </td>
-                            <td>
-                                Camera 1
-                            </td>
-                            <td>
-                                Camera
-                            </td>
-                            <td>
-                                Available
-                            </td>
-                            <td>
-                                John Doe
-                            </td>
-                            <td>
-                                05/16/2020
-                            </td>
-                            <td>
-                                05/16/2020
-                            </td>
-                            <td>
-                                <span><i class="pencil alternate centered icon"></i>| <i class="trash alternate centered icon"></i></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h4 class="ui image header">
-                                    <div class="content">
-                                        TC_ITEM-001
-                                    </div>
-                                </h4>
-                            </td>
-                            <td>
-                                Camera 1
-                            </td>
-                            <td>
-                                Camera
-                            </td>
-                            <td>
-                                Available
-                            </td>
-                            <td>
-                                John Doe
-                            </td>
-                            <td>
-                                05/16/2020
-                            </td>
-                            <td>
-                                05/16/2020
-                            </td>
-                            <td>
-                                <span><i class="pencil alternate centered icon"></i>| <i class="trash alternate centered icon"></i></span>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
