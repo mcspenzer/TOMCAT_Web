@@ -213,6 +213,7 @@
                 .modal('show');
         }
     </script>
+    <script src="../assets/js/header-methods.js"></script>
 </body>
 
 </html>
