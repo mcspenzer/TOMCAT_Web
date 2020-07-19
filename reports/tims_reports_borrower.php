@@ -173,6 +173,7 @@
 
             // $('.ui.calendar').calendar('set date', '1998-11-16');
     </script>
+    <script src="../assets/js/header-methods.js"></script>
 </body>
 
 </html>

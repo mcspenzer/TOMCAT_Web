@@ -2,7 +2,7 @@
 
 echo '<div class="ui fixed menu">
 <div class="ui container">
-    <a href="#" class="header item">
+    <a href="../home/tims_home.php" class="header item">
         <img class="logo" src="https://via.placeholder.com/150" style="margin-right:0.5em">
         TIMS | TOMCAT Information Management System
     </a>
