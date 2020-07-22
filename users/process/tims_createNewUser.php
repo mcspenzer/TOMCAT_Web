@@ -110,7 +110,7 @@ function createUser($target_file)
     $password = $_POST['password'];
     $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
-    echo "User Password length server: " . strlen($password);
+    // echo "User Password length server: " . strlen($password);
     // $password_hashed = md5($password);
 
     // TODO: Check if email exists

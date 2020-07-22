@@ -1134,7 +1134,7 @@
 
             if (isFormValid) {
                 $('#new-user-submit').addClass('loading');
-                $('#new-user-submit').addClass('disabled')
+                $('#new-user-submit').addClass('disabled');
 
                 var xhttp = new XMLHttpRequest();
 
@@ -1218,7 +1218,7 @@
                         var appendStr = "";
 
                         for (var i = 0; i < results.length; i++) {
-                            appendStr += '<tr><td>TOMCAT-' + results[i].user_id + '</td><td>' + results[i].user_last_name + '</td><td>' + results[i].user_first_name + '</td><td>' + results[i].user_position + '</td><td>' + results[i].user_contact_number + '</td><td>' + results[i].user_email + '</td><td>' + results[i].user_date_created + '</td><td>' + results[i].user_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editUser(' + results[i].user_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteUser(' + results[i].user_id + ')"></i></span></td></tr>'
+                            appendStr += '<tr><td><strong>TC_USER-' + results[i].user_id + '</strong></td><td>' + results[i].user_last_name + '</td><td>' + results[i].user_first_name + '</td><td>' + results[i].user_position + '</td><td>' + results[i].user_contact_number + '</td><td>' + results[i].user_email + '</td><td>' + results[i].user_date_created + '</td><td>' + results[i].user_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editUser(' + results[i].user_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteUser(' + results[i].user_id + ')"></i></span></td></tr>'
                         }
 
                         // new Date(results[i].user_date_created).toUTCString();
