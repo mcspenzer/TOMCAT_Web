@@ -597,7 +597,7 @@ function submitReturnItemForm() {
                     $('#return-item-submit').removeClass('loading');
                     $('#return-item-submit').removeClass('disabled');
 
-                    $('#borrowItemModal').modal('hide');
+                    $('#returnItemModal').modal('hide');
                     $('body').toast(toastObj);
                     getAllItems();
                 } else {

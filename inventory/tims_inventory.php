@@ -856,7 +856,6 @@
     <script src="../assets/js/additional-methods.min.js"></script>
     <script src='../assets/ext/fomatic/semantic.min.js'></script>
     <script src="../assets/js/header-methods.js"></script>
-    <script src="../assets/js/header-methods.js"></script>
     <script src="../assets/js/inventory/tims_inventory.js"></script>
 </body>
 

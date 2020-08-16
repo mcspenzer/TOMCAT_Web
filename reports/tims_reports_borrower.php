@@ -31,13 +31,17 @@
                         Go to Inventory
                         <!-- <div class="ui label">51</div> -->
                     </a>
+                    <a class="item" href="../reports/tims_reports_returner.php">
+                        Go to Returner reports
+                        <!-- <div class="ui label">51</div> -->
+                    </a>
                     <div class="item">
                         <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewItem()"><i class="file pdf icon"></i>Export to PDF</div>
                     </div>
                 </div>
             </div>
             <div class="column" style="margin-left:20em">
-                <table class="ui very basic collapsing celled table" style="margin-left: -32em">
+                <table class="ui very basic collapsing selectable celled table" style="margin-left: -32em">
                     <thead>
                         <tr>
                             <th>Log ID</th>
@@ -46,77 +50,125 @@
                             <th>Date Borrowed</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="borrows-table-body">
                         <tr>
                             <td>
-                                <h4 class="ui image header">
-                                    <div class="content">
-                                        TC_BOR-001
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
                                     </div>
-                                </h4>
+                                </div>
                             </td>
                             <td>
-                                Camera 1
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                John DOe
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                05/16/2020
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h4 class="ui image header">
-                                    <div class="content">
-                                        TC_BOR-001
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
                                     </div>
-                                </h4>
+                                </div>
                             </td>
                             <td>
-                                Camera 1
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                John DOe
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                05/16/2020
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h4 class="ui image header">
-                                    <div class="content">
-                                        TC_BOR-001
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
                                     </div>
-                                </h4>
+                                </div>
                             </td>
                             <td>
-                                Camera 1
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                John DOe
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                05/16/2020
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h4 class="ui image header">
-                                    <div class="content">
-                                        TC_BOR-001
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
                                     </div>
-                                </h4>
+                                </div>
                             </td>
                             <td>
-                                Camera 1
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                John DOe
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                05/16/2020
+                                <div class="ui fluid placeholder">
+                                    <div class="paragraph">
+                                        <div class="line"></div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -160,7 +212,9 @@
 
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
     <script src='../assets/ext/semantic/semantic.min.js'></script>
+    <script src="../assets/js/jquery.validate.min.js"></script>
     <script src='../assets/ext/fomatic/semantic.min.js'></script>
+    <script src="../assets/js/header-methods.js"></script>
     <script>
         function createNewItem() {
             $('.ui.modal')
@@ -173,7 +227,52 @@
 
         // $('.ui.calendar').calendar('set date', '1998-11-16');
     </script>
-    <script src="../assets/js/header-methods.js"></script>
+    <script>
+        $(document).ready(function() {
+            getAllBorrowReports();
+        });
+    </script>
+    <script>
+        function getAllBorrowReports() {
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onload = (e) => {
+                if (xhttp.readyState === 4) {
+                    if (xhttp.status === 200) {
+
+                        console.log(xhttp.responseText);
+                        var results = JSON.parse(xhttp.responseText);
+
+                        var appendStr = "";
+
+                        for (var i = 0; i < results.length; i++) {
+                            appendStr += '<tr onclick=selectLog(this)><td><strong>TC_BOR-' + results[i].borrow_log_id + '</strong></td><td>' + results[i].item_name + '</td><td>' + results[i].item_borrower + '</td><td class="logdate">' + results[i].borrow_log_date_created + '</td></tr>'
+                        }
+
+                        // new Date(results[i].user_date_created).toUTCString();
+                        $("#borrows-table-body").html(appendStr)
+                    }
+                }
+            };
+
+            xhttp.onerror = function(e) {
+                console.error(xhr.statusText);
+            };
+
+            xhttp.open('POST', './process/tims_displayAllBorrows.php', true);
+
+            xhttp.send();
+        }
+
+        function selectLog(element) {
+            $('#borrows-table-body').children('tr').removeClass('active');
+            $(element).addClass('active');
+
+            var date = $(element).children('.logdate').html().split(" ")[0];
+
+            $('.ui.calendar').calendar('set date', date);
+        }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,1 @@
+ErrorDocument 404 /TOMCAT_web/test404.php

@@ -26,7 +26,7 @@ if (isset($_GET['query'])) {
     //     }
     // ]}';
 
-    $sql_select = "SELECT * FROM users";
+    $sql_select = "SELECT * FROM users WHERE user_id != -1";
 
     $sql_resultSet = mysqli_query($database, $sql_select);
 

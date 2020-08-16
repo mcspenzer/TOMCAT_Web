@@ -29,6 +29,7 @@ if (!isset($_POST['borrow-log-item-borrowed'])) {
         } else {
             $sql_update = "UPDATE items SET 
                 item_status = 2,
+                item_borrower = ?,
                 item_date_modified = now()
 
                 WHERE item_id = ?";
@@ -38,7 +39,7 @@ if (!isset($_POST['borrow-log-item-borrowed'])) {
             if (!mysqli_stmt_prepare($stmt, $sql_update)) {
                 die(mysqli_error($database));
             } else {
-                mysqli_stmt_bind_param($stmt, "i", $borrow_log_itemBorrowed);
+                mysqli_stmt_bind_param($stmt, "ii", $borrow_log_borrower, $borrow_log_itemBorrowed);
 
                 if (!mysqli_stmt_execute($stmt)) {
                     die("Item borrow failed");
