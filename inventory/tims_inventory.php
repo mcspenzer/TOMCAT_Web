@@ -32,8 +32,8 @@
                         <!-- <div class="ui label">51</div> -->
                     </a>
                     <div class="item">
-                        <div class="ui secondary button centered" style="margin-left: 1.5em" onclick="createNewItem()"><i class="dolly icon"></i>Borrow Item&nbsp;&nbsp;&nbsp;</div>
-                        <div class="ui button centered" style="margin-left: 1.5em;margin-top: 1em" onclick="createNewItem()"><i class="warehouse icon"></i>Return Item&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="ui secondary button centered" style="margin-left: 1.5em" onclick="borrowItem()"><i class="dolly icon"></i>Borrow Item&nbsp;&nbsp;&nbsp;</div>
+                        <div class="ui button centered" style="margin-left: 1.5em;margin-top: 1em" onclick="returnItem()"><i class="warehouse icon"></i>Return Item&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     </div>
                     <div class="item">
                         <div class="ui primary button centered green" style="margin-left: 1.5em" onclick="createNewItem()"><i class="box icon"></i>Add new Item</div>
@@ -757,172 +757,107 @@
         </div>
     </div>
 
+    <div class="ui modal" id="editUserModal">
+        <i class="close icon"></i>
+        <div class="header">
+            Edit Item
+        </div>
+        <div class="ui container" style="padding: 1em">
+            <form class="ui form" id="edit-item-form">
+                <input type="hidden" id="item-id-hidden" name="item-id" value="">
+                <div class="field" id="edit-serial-number-div">
+                    <label>Serial Number</label>
+                    <div class="ui placeholder">
+                        <div class="medium line"></div>
+                    </div>
+                </div>
+                <div class="field" id="edit-item-name-div">
+                    <label>Item Name</label>
+                    <div class="ui placeholder">
+                        <div class="medium line"></div>
+                    </div>
+                </div>
+                <div class="field" id="edit-item-type-div">
+                    <label>Item Type</label>
+                    <div class="ui placeholder">
+                        <div class="medium line"></div>
+                    </div>
+                </div>
+                <div class="field" id="edit-item-owner-div">
+                    <label>Item Owner</label>
+                    <div class="ui placeholder">
+                        <div class="medium line"></div>
+                    </div>
+                </div>
+                <button class="ui button disabled" type="submit" onclick="submitEditItemForm()" id="edit-item-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="ui basic modal" id="delete-item-modal">
+        <div class="ui icon header">
+            <i class="archive icon"></i>
+            <h1>Delete Item?</h1>
+        </div>
+        <div class="content" id="delete-content">
+            <p>Do you want to delete the following item?: </p>
+        </div>
+        <div class="actions">
+            <div class="ui basic cancel inverted button" id="cancel-delete">
+                <i class="remove icon"></i>
+                Cancel
+            </div>
+            <div class="ui red ok inverted button" id="proceed-delete">
+                <i class="checkmark icon"></i>
+                Delete
+            </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="borrowItemModal">
+        <i class="close icon"></i>
+        <div class="header">
+            Borrow Item
+        </div>
+        <div class="ui container" style="padding: 1em">
+            <form class="ui form" id="borrow-item-form">
+                <div class="field required">
+                    <label>Item to borrow</label>
+                    <select class="ui search selection dropdown" id="item-to-borrow-select">
+                        <option value="" disabled selected>Item Name</option>
+                    </select>
+                </div>
+                <button class="ui button disabled" type="submit" onclick="submitBorrowItemForm()" id="borrow-item-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="ui modal" id="returnItemModal">
+        <i class="close icon"></i>
+        <div class="header">
+            Return Item
+        </div>
+        <div class="ui container" style="padding: 1em">
+            <form class="ui form" id="return-item-form">
+                <div class="field required">
+                    <label>Item to return</label>
+                    <select class="ui search selection dropdown" id="item-return-select">
+                        <option value="" disabled selected>Item Name</option>
+                    </select>
+                </div>
+                <button class="ui button disabled" type="submit" onclick="submitReturnItemForm()" id="return-item-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
     <script src='../assets/ext/semantic/semantic.min.js'></script>
     <script src="../assets/js/jquery.validate.min.js"></script>
     <script src="../assets/js/additional-methods.min.js"></script>
     <script src='../assets/ext/fomatic/semantic.min.js'></script>
     <script src="../assets/js/header-methods.js"></script>
-
-    <script>
-        function createNewItem() {
-            $('.ui.modal')
-                .modal('show');
-        }
-
-        function getAllItems() {
-            var xhttp = new XMLHttpRequest();
-
-            xhttp.onload = (e) => {
-                if (xhttp.readyState === 4) {
-                    if (xhttp.status === 200) {
-                        console.log(xhttp.responseText);
-
-                        var results = JSON.parse(xhttp.responseText);
-
-                        console.log(results);
-
-                        // $("#users-table").html("");
-
-                        var appendStr = "";
-
-                        for (var i = 0; i < results.length; i++) {
-                            appendStr += '<tr><td><strong>TC_ITEM-' + results[i].item_id + '</strong></td><td>' + results[i].item_serial_number + '</td><td>' + results[i].item_name + '</td><td>' + results[i].item_type + '</td><td>' + results[i].item_status + '</td><td>' + results[i].item_owner + '</td><td>' + results[i].item_date_created + '</td><td>' + results[i].item_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editUser(' + results[i].item_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteUser(' + results[i].item_id + ')"></i></span></td></tr>'
-                        }
-
-                        // new Date(results[i].user_date_created).toUTCString();
-                        $("#items-table-body").html(appendStr)
-                    }
-                }
-            };
-
-            xhttp.onerror = function(e) {
-                console.error(xhr.statusText);
-            };
-
-            xhttp.open('POST', './process/tims_displayAllItems.php', true);
-
-            xhttp.send();
-        }
-
-        function submitNewItemForm() {
-            console.log('Submit Item');
-
-            $('#add-item-form').form({
-                fields: {
-                    serial_number: {
-                        identifier: 'serial-number',
-                        rules: [{
-                            type: 'empty',
-                            prompt: 'Please specify the item\'s serial number'
-                        }]
-                    },
-                    item_name: {
-                        identifier: 'item-name',
-                        rules: [{
-                            type: 'empty',
-                            prompt: 'Please specify the item\'s name'
-                        }]
-                    },
-                    item_type: {
-                        identifier: 'item-type',
-                        rules: [{
-                            type: 'empty',
-                            prompt: 'Please specify the item\'s type (e.g. Camera)'
-                        }]
-                    },
-                    item_owner: {
-                        identifier: 'item-owner-select',
-                        rules: [{
-                            type: 'empty',
-                            prompt: 'Please specify the item\'s owner'
-                        }]
-                    }
-                }
-            });
-
-            var isFormValid = $('#add-item-form').form('is valid');
-
-            if (isFormValid) {
-                $('#new-item-submit').addClass('loading');
-                $('#new-item-submit').addClass('disabled');
-
-                var xhttp = new XMLHttpRequest();
-
-                xhttp.onload = (e) => {
-                    if (xhttp.readyState === 4) {
-                        if (xhttp.status === 200) {
-                            console.log(xhttp.responseText)
-
-                            var toastObj = {
-                                class: 'error',
-                                title: 'Error',
-                                position: 'bottom right',
-                                showIcon: 'exclamation',
-                                showProgress: 'bottom'
-                            }
-
-                            toastObj.message = xhttp.responseText;
-
-                            if (xhttp.responseText == 'Item creation success') {
-                                toastObj.class = 'success';
-                                toastObj.title = 'Success';
-                            }
-
-                            $('#new-item-submit').removeClass('loading');
-                            $('#new-item-submit').removeClass('disabled');
-
-                            $('#createNewUser').modal('hide');
-                            $('body').toast(toastObj);
-                            getAllItems();
-                        } else {
-                            console.log(xhttp.statusText)
-                        }
-                    }
-                };
-
-                xhttp.onerror = function(e) {
-                    console.error(xhr.statusText);
-                };
-
-                xhttp.open('POST', './process/tims_createNewItem.php', true);
-
-                var data = new FormData();
-
-                data.append('serial-number', $('#serial-number').val());
-                data.append('item-name', $('#item-name').val());
-                data.append('item-type', $('#item-type').val());
-                data.append('item-owner', $('#item-owner-select').dropdown('get value'));
-
-                // xhttp.setRequestHeader('Content-type', 'multipart/form-data; boundary="---------------------------168261202239157867303724621122"');
-
-                xhttp.send(data);
-            }
-        }
-    </script>
     <script src="../assets/js/header-methods.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#item-owner-select')
-                .dropdown({
-                    apiSettings: {
-                        url: 'http://localhost/tomcat_web/users/process/tims_fetchUser.php?query=query',
-                        onResponse: function(response) {
-                            console.log('Dropdown response: ', response);
-                        },
-                        cache: false
-                    },
-                    filterRemoteData: true,
-                    saveRemoteData: false
-                });
-
-            $("#add-item-form").submit(function(e) {
-                e.preventDefault();
-            });
-
-            getAllItems();
-        });
-    </script>
+    <script src="../assets/js/inventory/tims_inventory.js"></script>
 </body>
 
 </html>

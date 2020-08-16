@@ -561,7 +561,7 @@
         </div>
         <div class="scrolling content">
             <div class="ui container" style="padding: 1em">
-                <form class="ui form" id="edit-user" action="" method="POST">
+                <form class="ui form" id="edit-user" action="" method="POST" accept-charset="UTF-8">
                     <div class="ui two aligned center aligned" style="margin-top: 2em">
                         <div class="ui two column doubling stackable grid container">
                             <div class="column">
@@ -677,7 +677,7 @@
     <div class="ui basic modal" id="delete-user-modal">
         <div class="ui icon header">
             <i class="archive icon"></i>
-            Delete User?
+            <h1>Delete User?</h1>
         </div>
         <div class="content" id="delete-content">
             <p>Do you want to delete the following user?: </p>
@@ -734,7 +734,9 @@
                     if (xhttp.status === 200) {
                         console.log(xhttp.responseText);
 
-                        $("#delete-content").html('<p>Do you want to delete ' + result[0].user_first_name + ' ' + result[0].user_last_name + '?</p>');
+                        var result = JSON.parse(xhttp.responseText);
+
+                        $("#delete-content").html('<h3>Do you want to delete <strong>' + result[0].user_first_name + ' ' + result[0].user_last_name + '</strong>?</h3>');
 
                         // $("#display-photo-edit").val(result[0].user_display_photo);
 
@@ -1242,7 +1244,7 @@
                     console.log('modal hide');
                     // $('#add-new-user').form('reset');
                     // $('#add-new-user').form('clear');
-                    $("#add-new-user")[0].reset();
+                    $("#edit-user")[0].reset();
                 },
                 onShow: function() {
                     console.log('modal show');

@@ -40,6 +40,7 @@ if (!isset($_POST['user-email'])) {
                 } else {
                     $jsonArray = array();
 
+                    $jsonArray['user_id'] = $row['user_id'];
                     $jsonArray['user_first_name'] = $row['user_first_name'];
                     $jsonArray['user_last_name'] = $row['user_last_name'];
                     $jsonArray['user_email'] = $row['user_email'];
