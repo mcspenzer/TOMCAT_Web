@@ -36,7 +36,7 @@
                         <!-- <div class="ui label">51</div> -->
                     </a>
                     <div class="item">
-                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewItem()"><i class="file pdf icon"></i>Export to PDF</div>
+                        <div class="ui primary button centered" style="margin-left: 1.5em" onclick="window.open('http\:\/\/localhost/tomcat_web/reports/process/tims_exportToPDF.php?','_blank');"><i class="file pdf icon"></i>Export to PDF</div>
                     </div>
                 </div>
             </div>

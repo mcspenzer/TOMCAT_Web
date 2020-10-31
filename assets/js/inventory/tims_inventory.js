@@ -313,7 +313,7 @@ function submitBorrowItemForm() {
     }
 }
 
-function submitDeleteItemForm() {
+function submitDeleteItemForm(itemId) {
     console.log('submitDeleteItem');
 
     $('#proceed-delete').addClass('loading');
@@ -346,7 +346,7 @@ function submitDeleteItemForm() {
 
                 $('#delete-user-modal').modal('hide');
                 $('body').toast(toastObj);
-                getAllUsers();
+                getAllItems();
             }
         }
     }

@@ -2,6 +2,7 @@
 
 if (!isset($_POST['user-id'])) {
     die("No user id");
+    $_POST = array();
 } else {
     if (!isset($_FILES['edit-display-photo'])) {
         updateUser();
@@ -15,12 +16,15 @@ if (!isset($_POST['user-id'])) {
 
         if (!img_checkReal()) {
             echo "Image not real";
+            $_POST = array();
         } else {
             if (!img_checkSize()) {
                 echo "Image too large";
+                $_POST = array();
             } else {
                 if (!img_checkExtention($imageFileType)) {
                     echo "Image invalid extension";
+                    $_POST = array();
                 } else {
                     $actual_file_dir = $target_dir . md5(rand());
 
@@ -28,9 +32,11 @@ if (!isset($_POST['user-id'])) {
 
                     if (!is_dir($actual_file_dir . "/displayPhoto") && !mkdir($actual_file_dir . "/displayPhoto", 0777, true)) {
                         echo "Error creating directory";
+                        $_POST = array();
                     } else {
                         if (!move_uploaded_file($_FILES["display-photo"]["tmp_name"], $absolute_file_dir)) {
                             echo "File upload error";
+                            $_POST = array();
                         } else {
                             // echo "File upload success";
                             updateUser($absolute_file_dir);
@@ -75,6 +81,7 @@ function updateUser($displayPhoto = null)
     if (isset($_POST['password']) && isset($_POST['confirm-password'])) {
         if ($_POST['password'] != $_POST['confirm-password']) {
             die("Password does not match");
+            $_POST = array();
         } else {
 
             $password_hashed = md5(mysqli_real_escape_string($database, $_POST['password']));
@@ -91,6 +98,8 @@ function updateUser($displayPhoto = null)
         echo "User update failed: " . mysqli_error($database);
         echo "SQL: " . $sql_update;
     }
+
+    $_POST = array();
 }
 
 function img_checkReal()

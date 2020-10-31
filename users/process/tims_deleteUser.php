@@ -2,6 +2,7 @@
 
 if (!isset($_POST['user-id'])) {
     die("No user id");
+    $_POST = array();
 } else {
     $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
 
@@ -15,4 +16,6 @@ if (!isset($_POST['user-id'])) {
         echo "User update failed: " . mysqli_error($database);
         echo "SQL: " . $sql_update;
     }
+
+    $_POST = array();
 }

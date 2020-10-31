@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>TIMS | Login</title>
 	<link rel="stylesheet" type="text/css" href="../assets/ext/semantic/semantic.min.css" />
+	<link rel="stylesheet" type="text/css" href="../assets/ext/fomatic/semantic.min.css">
 	<style type="text/css">
 		body {
 			background-color: #DADADA;
@@ -65,7 +66,7 @@
 			</form>
 
 			<div class="ui message">
-				<a href="#">Forgot your password?</a>
+				<a href="../reset/tims_resetPassword.php">Forgot your password?</a>
 			</div>
 		</div>
 	</div>
@@ -75,10 +76,31 @@
 	<script src="../assets/js/jquery.validate.min.js"></script>
 	<script src="../assets/js/additional-methods.min.js"></script>
 	<script src='../assets/ext/fomatic/semantic.min.js'></script>
+	<!-- <script src="../assets/js/header-methods.js"></script> -->
 
+	<script>
+		function isFalseSession() {
+			var urlParams = new URLSearchParams(window.location.href);
+
+			if (urlParams.has('invalidsession')) {
+				var toastObj = {
+					class: 'error',
+					title: 'No Session Found',
+					position: 'bottom right',
+					showIcon: 'exclamation',
+					showProgress: 'bottom'
+				}
+
+				toastObj.message = 'Please login again';
+
+				$('body').toast(toastObj);
+			}
+		}
+	</script>
 	<script>
 		$(document)
 			.ready(function() {
+				isFalseSession()
 				$('.ui.form')
 					.form({
 						fields: {
@@ -137,32 +159,30 @@
 						if (xhttp.status === 200) {
 
 							var toastObj = {
-                                class: 'error',
-                                title: 'Error',
-                                position: 'bottom right',
-                                showIcon: 'exclamation',
-                                showProgress: 'bottom'
-                            }
+								class: 'error',
+								title: 'Error',
+								position: 'bottom right',
+								showIcon: 'exclamation',
+								showProgress: 'bottom'
+							}
 
-                            toastObj.message = xhttp.responseText;
+							toastObj.message = xhttp.responseText;
 
 							console.log('- Auth response', xhttp.responseText);
 
-                            $('#login-button').removeClass('loading');
-                            $('#login-button').removeClass('disabled');
-                            
-                          
+							$('#login-button').removeClass('loading');
+							$('#login-button').removeClass('disabled');
+
+
 							if (typeof(Storage) == "undefined") {
 								console.log('- Browser unsupported');
 
 								toastObj.message = 'Browser unsupported'
 								$('body').toast(toastObj);
 							} else {
-								console.log('- Adding localStorage');
-
 								try {
 									var results = JSON.parse(xhttp.responseText);
-
+									console.log('- Adding localStorage');
 									for (var key in results) {
 										if (results.hasOwnProperty(key)) {
 											sessionStorage.setItem(key, results[key]);

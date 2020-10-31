@@ -1,0 +1,6 @@
+- Double check PDF Generation (DONE)
+- Forget password (DONE)
+- Double check emailexist (DONE)
+- Replace picture not working (DONE)
+- Borrow return not reflecting correctly (DONE)
+- Delete Item not working (DONE)

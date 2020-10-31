@@ -1,0 +1,28 @@
+A. Install the webapp
+    1. Install XAMPP
+    2. Copy whole contents of the ZIP file 
+    3. Navigate to C:/xampp/htdocs
+    4. Create new folder and name it TOMCAT_web
+    5. Open the newly created folder
+    6. Paste all contents of the zip to the folder
+
+B. Import the DB data
+    1. Open your browser
+    2. Open XAMPP and start the following:
+        - Apache
+        - MySQL
+    3. On the browser, navigate to http://localhost/phpmyadmin/
+    4. Navigate to the Import tab 
+    5. Click the Browse... button and navigate to C:/xampp/htdocs/TOMCAT_web
+    6. Choose the tomcat_web.sql file and click OK
+    7. Click the Go button
+
+C. Run the website
+    1. Open XAMPP
+    2. Start the following services:
+        - Apache
+        - MySQL
+    3. On the browser, navigate to http://localhost/tomcat_web/
+        - default credentials:
+            email: adminemail@gmail.com
+            password: lifestealer

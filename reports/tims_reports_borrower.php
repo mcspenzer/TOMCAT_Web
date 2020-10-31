@@ -174,7 +174,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="column" style="margin-left:-20em;">
+            <div class="column" style="margin-left:-20em; pointer-events: none;">
                 <div class="ui calendar" id="inline_calendar">
                 </div>
             </div>

@@ -1,11 +1,14 @@
 <?php
 
+require '../../vendor/autoload.php';
+
 if (!isset($_POST['user-email'])) {
     die('no user email');
 } else if (!isset($_POST['user-password'])) {
     die('no user password');
 } else {
     $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
+    mysqli_set_charset($database, 'utf8');
 
     $user_email = mysqli_real_escape_string($database, $_POST['user-email']);
     // $user_password = mysqli_real_escape_string($database, $_POST['user-password']);
@@ -35,9 +38,8 @@ if (!isset($_POST['user-email'])) {
 
                 // var_dump($row['user_password']);
 
-                if (!password_verify($user_password, $row['user_password'])) {
-                    die('Invalid password');
-                } else {
+                if (PHPassLib\Hash\BCrypt::verify($user_password, $row['user_password'])) {
+                    
                     $jsonArray = array();
 
                     $jsonArray['user_id'] = $row['user_id'];
@@ -47,6 +49,8 @@ if (!isset($_POST['user-email'])) {
                     $jsonArray['user_display_photo'] = $row['user_display_photo'];
 
                     echo json_encode($jsonArray);
+                } else {
+                    die('Invalid password');
                 }
             }
         }

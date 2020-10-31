@@ -465,14 +465,14 @@
                                 <div class="field">
                                     <div class="ui card">
                                         <a class="image" href="#">
-                                            <img src="https://via.placeholder.com/150" id="display-photo-preview" class="ui medium image">
+                                            <img src="https://via.placeholder.com/150" id="create-display-photo-preview" class="ui medium image">
                                         </a>
                                         <!-- <div class="ui primary button">
                                         Upload Display Photo
                                     </div> -->
 
-                                        <input required type="file" name="display-photo" id="display-photo" style="width: 0.1px; height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" onchange="changeDisplayPhotoPreview(this)">
-                                        <label for="display-photo" class="ui primary button centered">
+                                        <input required type="file" name="create-display-photo" id="create-display-photo" style="width: 0.1px; height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" onchange="changeDisplayPhotoPreview(this)">
+                                        <label for="create-display-photo" class="ui primary button centered">
                                             <i class="ui upload icon"></i>
                                             Upload Display Photo
                                         </label>
@@ -484,7 +484,7 @@
                                 <div class="field required">
                                     <label>Last Name</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="text" name="last-name" placeholder="Last Name" id="last-name">
+                                        <input required type="text" name="create-last-name" placeholder="Last Name" id="create-last-name">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -493,7 +493,7 @@
                                 <div class="field required">
                                     <label>First Name</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="text" name="first-name" placeholder="First Name" id="first-name">
+                                        <input required type="text" name="create-first-name" placeholder="First Name" id="create-first-name">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -502,7 +502,7 @@
                                 <div class="field required">
                                     <label>Position</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="text" name="position" placeholder="Last Name" id="position">
+                                        <input required type="text" name="create-position" placeholder="Position" id="create-position">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -511,7 +511,7 @@
                                 <div class="field required">
                                     <label>Contact Number</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="text" name="contact-number" placeholder="Last Name" id="contact-number">
+                                        <input required type="text" name="create-contact-number" placeholder="Contact Number" id="create-contact-number">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -520,7 +520,7 @@
                                 <div class="field required">
                                     <label>Email</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="text" name="email" placeholder="Last Name" id="email">
+                                        <input required type="text" name="create-email" placeholder="Email" id="create-email">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -529,7 +529,7 @@
                                 <div class="field required">
                                     <label>Password</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="password" name="password" placeholder="Password" id="password">
+                                        <input required type="password" name="create-password" placeholder="Password" id="create-password">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -538,7 +538,7 @@
                                 <div class="field required">
                                     <label>Confirm Password</label>
                                     <div class="ui left corner labeled input">
-                                        <input required type="password" name="confirm-password" placeholder="Confirm Password" id="confirm-password">
+                                        <input required type="password" name="create-confirm-password" placeholder="Confirm Password" id="create-confirm-password">
                                         <div class="ui left corner label">
                                             <i class="asterisk icon"></i>
                                         </div>
@@ -619,18 +619,6 @@
                                         <div class="long line"></div>
                                     </div>
                                 </div>
-                                <!-- <div class="field" id="edit-password-div">
-                                    <label>Change Password</label>
-                                    <div class="ui left corner labeled input">
-                                        <input type="password" name="password" placeholder="Password" id="password">
-                                    </div>
-                                </div>
-                                <div class="field" id="edit-confirm-password-div">
-                                    <label>Confirm Password</label>
-                                    <div class="ui left corner labeled input">
-                                        <input type="password" name="confirm-password" placeholder="Confirm Password" id="confirm-password">
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -649,22 +637,22 @@
             Change Password
         </div>
         <div class="scrolling content">
-            <form class="ui form" id="edit-password-form" action="" method="POST">
+            <form class="ui form" id="edit-password-form" action="" method="POST" accept-charset="UTF-8">
                 <div class="ui container" style="padding: 1em">
                     <div class="field" id="edit-password-div">
                         <label>Change Password</label>
                         <div class="ui left corner labeled input">
-                            <input type="password" name="edit-password" placeholder="Password" id="password">
+                            <input type="password" name="edit-password" placeholder="Password" id="edit-password">
                         </div>
                     </div>
                     <div class="field" id="edit-confirm-password-div">
                         <label>Confirm Password</label>
                         <div class="ui left corner labeled input">
-                            <input type="password" name="edit-confirm-password" placeholder="Confirm Password" id="confirm-password">
+                            <input type="password" name="edit-confirm-password" placeholder="Confirm Password" id="edit-confirm-password">
                         </div>
                     </div>
-                </div>
-                <div class="ui error message">
+                    <div class="ui error message">
+                    </div>
                 </div>
             </form>
         </div>
@@ -810,6 +798,7 @@
             $("#edit-password-modal").modal({
                 onApprove: function() {
                     console.log('On Approve');
+                    $('#editUser').modal('hide')
                     submitEditUserPassword();
                     return false;
                 }
@@ -842,13 +831,15 @@
                                 prompt: 'Password confirmation minimum length must be at least 10 characters'
                             },
                             {
-                                type: 'match[password]',
+                                type: 'match[edit-password]',
                                 prompt: 'Passwords must match'
                             }
                         ]
                     },
                 }
             });
+
+            $('#edit-password-form').form('validate form');
 
             var isFormValid = $('#edit-password-form').form('is valid');
 
@@ -895,8 +886,6 @@
                 };
 
                 xhttp.open('POST', './process/tims_updatePassword.php', true);
-
-                // var values = $('#edit-password-form').form('get values');
 
                 var data = new FormData();
 
@@ -1041,40 +1030,38 @@
 
         function submitNewUserForm() {
 
-            console.log($('#add-new-user').form('get value', 'password'))
-
             $('#add-new-user').form({
                 fields: {
                     display_photo: {
-                        identifier: 'display-photo',
+                        identifier: 'create-display-photo',
                         rules: [{
                             type: 'empty',
                             prompt: 'Please specify a display photo'
                         }]
                     },
                     first_name: {
-                        identifier: 'first-name',
+                        identifier: 'create-first-name',
                         rules: [{
                             type: 'empty',
                             prompt: 'Please enter your {name}'
                         }]
                     },
                     last_name: {
-                        identifier: 'last-name',
+                        identifier: 'create-last-name',
                         rules: [{
                             type: 'empty',
                             prompt: 'Please enter your {name}'
                         }]
                     },
                     position: {
-                        identifier: 'position',
+                        identifier: 'create-position',
                         rules: [{
                             type: 'empty',
                             prompt: 'Please enter your {name}'
                         }]
                     },
                     contact_number: {
-                        identifier: 'contact-number',
+                        identifier: 'create-contact-number',
                         rules: [{
                                 type: 'empty',
                                 prompt: 'Please enter your {name}'
@@ -1090,7 +1077,7 @@
                         ]
                     },
                     email: {
-                        identifier: 'email',
+                        identifier: 'create-email',
                         rules: [{
                                 type: 'empty',
                                 prompt: 'Please enter your {name}'
@@ -1102,7 +1089,7 @@
                         ]
                     },
                     password: {
-                        identifier: 'password',
+                        identifier: 'create-password',
                         rules: [{
                                 type: 'empty',
                                 prompt: 'Please enter a password'
@@ -1114,7 +1101,7 @@
                         ]
                     },
                     confirm_password: {
-                        identifier: 'confirm-password',
+                        identifier: 'create-confirm-password',
                         rules: [{
                                 type: 'empty',
                                 prompt: 'Please confirm your password'
@@ -1124,7 +1111,7 @@
                                 prompt: 'Password confirmation minimum length must be at least 10 characters'
                             },
                             {
-                                type: 'match[password]',
+                                type: 'match[create-password]',
                                 prompt: 'Passwords must match'
                             }
                         ]
@@ -1184,14 +1171,14 @@
 
                 var passwordExtracted = $('#password').val();
 
-                data.append('display-photo', document.getElementById('display-photo').files[0]);
-                data.append('first-name', $('#first-name').val());
-                data.append('last-name', $('#last-name').val());
-                data.append('position', $('#position').val());
-                data.append('contact-number', $('#contact-number').val());
-                data.append('email', $('#email').val());
-                data.append('password', passwordExtracted);
-                data.append('confirm-password', $('#confirm-password').val());
+                data.append('display-photo', document.getElementById('create-display-photo').files[0]);
+                data.append('first-name', $('#create-first-name').val());
+                data.append('last-name', $('#create-last-name').val());
+                data.append('position', $('#create-position').val());
+                data.append('contact-number', $('#create-contact-number').val());
+                data.append('email', $('#create-email').val());
+                data.append('password', $('#create-password').val());
+                data.append('confirm-password', $('#create-confirm-password').val());
 
                 console.log("User Password length client: " + passwordExtracted.length);
 
@@ -1199,8 +1186,6 @@
 
                 xhttp.send(data);
             }
-
-
         }
 
         function getAllUsers() {
@@ -1330,6 +1315,16 @@
                 return true;
             }
         });
+
+        $("#edit-password-form").submit(function(e) {
+            e.preventDefault();
+        });
+
+        $("#edit-password-form").validate({
+            errorPlacement: function(error, element) {
+                return true;
+            }
+        })
 
         $(document).ready(function() {
             getAllUsers();
