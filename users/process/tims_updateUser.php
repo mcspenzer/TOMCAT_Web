@@ -4,11 +4,11 @@ if (!isset($_POST['user-id'])) {
     die("No user id");
     $_POST = array();
 } else {
-    if (!isset($_FILES['edit-display-photo'])) {
+    if (!isset($_FILES['display-photo'])) {
         updateUser();
     } else {
         $target_dir = "./displayphotouploads/";
-        $target_file = $target_dir . basename($_FILES["edit-display-photo"]["name"]);
+        $target_file = $target_dir . basename($_FILES["display-photo"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $uploadOk = true;
 
@@ -28,7 +28,11 @@ if (!isset($_POST['user-id'])) {
                 } else {
                     $actual_file_dir = $target_dir . md5(rand());
 
-                    $absolute_file_dir = $actual_file_dir . "/displayPhoto." . $imageFileType;
+                    // $absolute_file_dir = $actual_file_dir . "/displayPhoto." . $imageFileType;
+
+                    $absolute_file_dir = getExistingFileDir();
+
+                    // die($absolute_file_dir);
 
                     if (!is_dir($actual_file_dir . "/displayPhoto") && !mkdir($actual_file_dir . "/displayPhoto", 0777, true)) {
                         echo "Error creating directory";
@@ -44,6 +48,32 @@ if (!isset($_POST['user-id'])) {
                     }
                 }
             }
+        }
+    }
+}
+
+function getExistingFileDir() {
+    $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
+
+    $userId = $_POST['user-id'];
+
+    $sql = 'SELECT user_display_photo FROM users WHERE user_id = ?';
+
+    $stmt = mysqli_stmt_init($database);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        die(mysqli_error($database));
+        $_POST = array();
+    } else {
+        mysqli_stmt_bind_param($stmt, "s", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        if (!$row = mysqli_fetch_assoc($result)) {
+            die('No path found');
+        } else {
+            return $row['user_display_photo'];
         }
     }
 }

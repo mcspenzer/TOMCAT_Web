@@ -20,8 +20,8 @@
     </h2>
 
     <div class="ui middle aligned center aligned" style="margin-top: 2em">
-        <div class="ui two column doubling stackable grid container">
-            <div class="column">
+        <div class="ui grid" style="margin-left: 10em; margin-right: 10em">
+            <div class="left floated two wide column">
                 <div class="ui vertical menu" style="margin-top: 3em; margin-left:-7em">
                     <a class="item" href="../users/tims_users.php">
                         Go to Users
@@ -40,8 +40,8 @@
                     </div>
                 </div>
             </div>
-            <div class="column">
-                <table class="ui very basic collapsing celled table" style="margin-left: -32em">
+            <div class="thirteen wide column">
+                <table class="ui very basic compact collapsing celled table" style="font-size:small">
                     <thead>
                         <tr>
                             <th>Item ID</th>

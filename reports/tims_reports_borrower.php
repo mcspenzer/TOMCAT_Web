@@ -20,8 +20,8 @@
     </h2>
 
     <div class="ui middle aligned center aligned" style="margin-top: 2em">
-        <div class="ui three column doubling stackable grid container">
-            <div class="column">
+        <div class="ui grid equal width" style="margin-left: 10em; margin-right: 10em">
+            <div class="three wide column">
                 <div class="ui vertical menu" style="margin-top: 3em; margin-left:-7em">
                     <a class="item" href="../users/tims_users.php">
                         Go to Users
@@ -40,8 +40,8 @@
                     </div>
                 </div>
             </div>
-            <div class="column" style="margin-left:20em">
-                <table class="ui very basic collapsing selectable celled table" style="margin-left: -32em">
+            <div class="eight wide column">
+                <table class="ui very basic selectable celled table">
                     <thead>
                         <tr>
                             <th>Log ID</th>
@@ -174,7 +174,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="column" style="margin-left:-20em; pointer-events: none;">
+            <div class="three wide column" style="pointer-events: none;">
                 <div class="ui calendar" id="inline_calendar">
                 </div>
             </div>

@@ -29,7 +29,7 @@
 
     <div class="ui fixed menu">
         <div class="ui container">
-            <a href="#" class="header item">
+            <a href="../login/tims_login.php" class="header item">
                 <img class="logo" src="https://via.placeholder.com/150" style="margin-right:0.5em">
                 TIMS | TOMCAT Information Management System
             </a>
@@ -116,6 +116,12 @@
         $("#user-reset-form").submit(function(e) {
             e.preventDefault();
         });
+
+        $('#confirm-new-password').on('keypress', function(e) {
+            if (e.which == 13) {
+                $('#login-button').click();
+            }
+        });
     </script>
 
     <script>
@@ -199,7 +205,10 @@
                                     window.location.replace("../login/tims_login.php?");
                                 },
                                 onDeny: function() {
-                                    return false;
+                                    window.location.replace("../login/tims_login.php?");
+                                },
+                                onHide: function() {
+                                    window.location.replace("../login/tims_login.php?");
                                 }
                             }).modal('show');
 

@@ -20,8 +20,8 @@
     </h2>
 
     <div class="ui middle aligned center aligned" style="margin-top: 2em">
-        <div class="ui two column doubling stackable grid container">
-            <div class="column" style="margin-right: -30em">
+        <div class="ui grid" style="margin-left: 10em; margin-right: 10em">
+            <div class="left floated two wide column">
                 <div class="ui vertical menu" style="margin-top: 3em; margin-left:-7em">
                     <a class="item" href="../inventory/tims_inventory.php">
                         Go to Inventory
@@ -36,11 +36,11 @@
                     </div>
                 </div>
             </div>
-            <div class="column dimmable">
+            <div class="thirteen wide column dimmable">
                 <!-- <div class="ui active inverted dimmer">
                     <div class="ui medium text loader">Loading</div>
                 </div> -->
-                <table class="ui very basic collapsing celled table">
+                <table class="ui very basic compact collapsing celled table" style="font-size:small">
                     <thead>
                         <tr>
                             <th>User ID</th>
@@ -464,14 +464,14 @@
                             <div class="column">
                                 <div class="field">
                                     <div class="ui card">
-                                        <a class="image" href="#">
+                                        <a class="image" onclick="$('#create-display-photo').click()">
                                             <img src="https://via.placeholder.com/150" id="create-display-photo-preview" class="ui medium image">
                                         </a>
                                         <!-- <div class="ui primary button">
                                         Upload Display Photo
                                     </div> -->
 
-                                        <input required type="file" name="create-display-photo" id="create-display-photo" style="width: 0.1px; height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" onchange="changeDisplayPhotoPreview(this)">
+                                        <input required type="file" name="create-display-photo" id="create-display-photo" style="width: 0.1px; height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" onchange="changeDisplayPhotoPreview(this, 'create')">
                                         <label for="create-display-photo" class="ui primary button centered">
                                             <i class="ui upload icon"></i>
                                             Upload Display Photo
@@ -567,7 +567,7 @@
                             <div class="column">
                                 <div class="field">
                                     <div class="ui card">
-                                        <a class="image" href="#">
+                                        <a class="image" onclick="$('#edit-display-photo').click()">
                                             <div id="placeholder-id">
                                                 <div class="ui placeholder">
                                                     <div class="square image"></div>
@@ -579,7 +579,7 @@
                                         Upload Display Photo
                                     </div> -->
                                         <input type="hidden" id="user-id-hidden" name="user-id" value="">
-                                        <input type="file" name="edit-display-photo" id="edit-display-photo" style="width: 0.1px; height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" onchange="changeDisplayPhotoPreview(this)">
+                                        <input type="file" name="edit-display-photo" id="edit-display-photo" style="width: 0.1px; height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" onchange="changeDisplayPhotoPreview(this, 'edit')">
                                         <label for="edit-display-photo" class="ui primary button centered">
                                             <i class="ui upload icon"></i>
                                             Upload Display Photo
@@ -1012,17 +1012,33 @@
 
         }
 
-        function changeDisplayPhotoPreview(input) {
+        function changeDisplayPhotoPreview(input, context) {
+            console.log('Change Display Photo Preview');
             var displayPhotoLocation = input.value;
+            console.log('input value', input.value);
             var displayPhotoExtension = displayPhotoLocation.substring(displayPhotoLocation.lastIndexOf('.') + 1).toLowerCase();
+
             if (input.files && input.files[0] && (displayPhotoExtension == 'gif' || displayPhotoExtension == 'png' || displayPhotoExtension == 'jpg' || displayPhotoExtension == 'jpeg')) {
+
+                console.log('Inside if');
+
                 var fileReader = new FileReader();
 
                 fileReader.onload = (e) => {
-                    $('#display-photo-preview').attr('src', e.target.result);
+                    var target = '#create-display-photo-preview';
+
+                    if (context == 'edit') {
+                        console.log('edit context');
+                        target = '#edit-display-photo-preview';
+                    }
+                    
+                    console.log('target result', e.target.result);
+                    $(target).attr('src', e.target.result);
                 }
 
                 fileReader.readAsDataURL(input.files[0]);
+
+                console.log('read as data url');
             } else {
                 alert('File is invalid')
             }
@@ -1169,7 +1185,7 @@
 
                 var data = new FormData();
 
-                var passwordExtracted = $('#password').val();
+                // var passwordExtracted = $('#password').val();
 
                 data.append('display-photo', document.getElementById('create-display-photo').files[0]);
                 data.append('first-name', $('#create-first-name').val());
@@ -1180,7 +1196,7 @@
                 data.append('password', $('#create-password').val());
                 data.append('confirm-password', $('#create-confirm-password').val());
 
-                console.log("User Password length client: " + passwordExtracted.length);
+                // console.log("User Password length client: " + passwordExtracted.length);
 
                 // xhttp.setRequestHeader('Content-type', 'multipart/form-data; boundary="---------------------------168261202239157867303724621122"');
 
@@ -1265,7 +1281,7 @@
 
                         $("#edit-email").val(result[0].user_email);
 
-                        $("#placeholder-id").html('<img src="http://localhost/tomcat_web/users/process' + result[0].user_display_photo.substring(1, result[0].user_display_photo.length) + '" id="display-photo-preview" class="ui medium image">');
+                        $("#placeholder-id").html('<img src="http://localhost/tomcat_web/users/process' + result[0].user_display_photo.substring(1, result[0].user_display_photo.length) + '?' + (new Date()).getTime() + '" id="edit-display-photo-preview" class="ui medium image">');
 
                         $("#user-id-hidden").val(result[0].user_id);
 

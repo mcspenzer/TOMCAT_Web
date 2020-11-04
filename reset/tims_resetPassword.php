@@ -44,7 +44,7 @@
                 </div>
             </h2>
             <form class="ui large form" id="user-reset-form" accept-charset="UTF-8">
-                <div class="ui stacked segment">
+                <div class="ui stacked segment" id='prompt-box'>
                     <div class="field">
                         <label>Please enter your email address</label>
                         <div class="ui left icon input">
@@ -56,7 +56,6 @@
                 </div>
 
                 <div class="ui error message"></div>
-
             </form>
         </div>
     </div>
@@ -102,6 +101,7 @@
             if (isFormValid) {
                 $('#login-button').addClass('loading');
                 $('#login-button').addClass('disabled');
+                $('#user-email').addClass('disabled');
 
                 var userEmail = $('#user-email').val();
 
@@ -126,10 +126,13 @@
                             if (xhttp.responseText == 'Email reset link sent') {
                                 toastObj.class = 'success';
                                 toastObj.title = 'Success';
+
+                                $('#prompt-box').html('<h3>Email Sent!</h3><p>An email containing instructions to reset your password has been sent on the specified email address. Please allow for 3-5 minutes for the email to come through. Also check your spam folder for the instructions in the event that there\'s no instructions received.</p><br/><input class="ui teal large button" type="button" value="Back to Login" onclick="window.location.replace(\'../login/tims_login.php\');">');
                             }
 
                             $('#login-button').removeClass('loading');
                             $('#login-button').removeClass('disabled');
+                            $('#user-email').addClass('disabled');
 
                             $('#user-email').val('');
 

@@ -46,13 +46,13 @@
 			</h2>
 			<form class="ui large form" id="user-login-form" accept-charset="UTF-8">
 				<div class="ui stacked segment">
-					<div class="field">
+					<div class="field" id='email-div'>
 						<div class="ui left icon input">
 							<i class="user icon"></i>
 							<input type="text" name="email" placeholder="Email" id="user-email">
 						</div>
 					</div>
-					<div class="field">
+					<div class="field" id='password-div'>
 						<div class="ui left icon input">
 							<i class="lock icon"></i>
 							<input type="password" name="password" placeholder="Password" id="user-password">
@@ -100,36 +100,42 @@
 	<script>
 		$(document)
 			.ready(function() {
-				isFalseSession()
-				$('.ui.form')
-					.form({
-						fields: {
-							email: {
-								identifier: 'email',
-								rules: [{
-										type: 'empty',
-										prompt: 'Please enter your e-mail'
-									},
-									{
-										type: 'email',
-										prompt: 'Please enter a valid e-mail'
-									}
-								]
-							},
-							password: {
-								identifier: 'password',
-								rules: [{
-										type: 'empty',
-										prompt: 'Please enter your password'
-									},
-									{
-										type: 'length[6]',
-										prompt: 'Your password must be at least 6 characters'
-									}
-								]
-							}
+				isFalseSession();
+
+				$('.ui.form').form({
+					fields: {
+						email: {
+							identifier: 'email',
+							rules: [{
+									type: 'empty',
+									prompt: 'Please enter your e-mail'
+								},
+								{
+									type: 'email',
+									prompt: 'Please enter a valid e-mail'
+								}
+							]
+						},
+						password: {
+							identifier: 'password',
+							rules: [{
+									type: 'empty',
+									prompt: 'Please enter your password'
+								},
+								{
+									type: 'length[6]',
+									prompt: 'Your password must be at least 6 characters'
+								}
+							]
 						}
-					});
+					}
+				});
+
+				$('#user-password').on('keypress', function(e) {
+					if (e.which == 13) {
+						$('#login-button').click();
+					}
+				});
 			});
 
 		$("#user-login-form").submit(function(e) {
@@ -148,6 +154,8 @@
 			if (isFormValid) {
 				$('#login-button').addClass('loading');
 				$('#login-button').addClass('disabled');
+				$('#email-div').addClass('disabled');
+				$('#password-div').addClass('disabled');
 
 				var userEmail = $('#user-email').val();
 				var userPassword = $('#user-password').val();
@@ -172,6 +180,8 @@
 
 							$('#login-button').removeClass('loading');
 							$('#login-button').removeClass('disabled');
+							$('#email-div').removeClass('disabled');
+							$('#password-div').removeClass('disabled');
 
 
 							if (typeof(Storage) == "undefined") {
@@ -180,19 +190,24 @@
 								toastObj.message = 'Browser unsupported'
 								$('body').toast(toastObj);
 							} else {
-								try {
-									var results = JSON.parse(xhttp.responseText);
-									console.log('- Adding localStorage');
-									for (var key in results) {
-										if (results.hasOwnProperty(key)) {
-											sessionStorage.setItem(key, results[key]);
-										}
-									}
 
-									window.location.replace("../home/tims_home.php");
-								} catch (error) {
-									toastObj.message = error;
+								if (xhttp.responseText == 'Invalid password') {
 									$('body').toast(toastObj);
+								} else {
+									try {
+										var results = JSON.parse(xhttp.responseText);
+										console.log('- Adding localStorage');
+										for (var key in results) {
+											if (results.hasOwnProperty(key)) {
+												sessionStorage.setItem(key, results[key]);
+											}
+										}
+
+										window.location.replace("../home/tims_home.php");
+									} catch (error) {
+										toastObj.message = error;
+										$('body').toast(toastObj);
+									}
 								}
 							}
 						}
