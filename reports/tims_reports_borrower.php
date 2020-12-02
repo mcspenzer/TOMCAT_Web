@@ -47,6 +47,7 @@
                             <th>Log ID</th>
                             <th>Item Name</th>
                             <th>User</th>
+                            <th>External Borrower</th>
                             <th>Date Borrowed</th>
                         </tr>
                     </thead>
@@ -246,7 +247,7 @@
                         var appendStr = "";
 
                         for (var i = 0; i < results.length; i++) {
-                            appendStr += '<tr onclick=selectLog(this)><td><strong>TC_BOR-' + results[i].borrow_log_id + '</strong></td><td>' + results[i].item_name + '</td><td>' + results[i].item_borrower + '</td><td class="logdate">' + results[i].borrow_log_date_created + '</td></tr>'
+                            appendStr += '<tr onclick=selectLog(this)><td><strong>TC_BOR-' + results[i].borrow_log_id + '</strong></td><td>' + results[i].item_name + '</td><td>' + results[i].item_borrower + '</td><td>' + results[i].borrow_log_item_borrower_external + '</td><td class="logdate">' + results[i].borrow_log_date_created + '</td></tr>'
                         }
 
                         // new Date(results[i].user_date_created).toUTCString();

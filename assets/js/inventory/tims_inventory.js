@@ -246,7 +246,7 @@ function returnItem() {
 }
 
 function submitBorrowItemForm() {
-    $("#borrow-item-form").form({
+    var validationObject = {
         fields: {
             item_to_borrow: {
                 identifier: 'item-to-borrow-select',
@@ -256,7 +256,27 @@ function submitBorrowItemForm() {
                 }]
             },
         }
-    });
+    }
+
+    if ($('#externalBorrower').checkbox('is checked')) {
+        validationObject.fields.external_first = {
+            identifier: 'externalFirstName',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please specify the external borrower\'s first name'
+            }]
+        }
+
+        validationObject.fields.external_last = {
+            identifier: 'externalLastName',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please specify the external borrower\'s last name'
+            }]
+        }
+    }
+
+    $('#borrow-item-form').form(validationObject);
 
     var isFormValid = $('#borrow-item-form').form('is valid');
 
@@ -308,6 +328,8 @@ function submitBorrowItemForm() {
 
         data.append('borrow-log-item-borrowed', $('#item-to-borrow-select').dropdown('get value'));
         data.append('borrow-log-borrower', sessionStorage.getItem('user_id'));
+        data.append('borrow-log-external-first-name', $('#externalFirstName').val());
+        data.append('borrow-log-external-last-name', $('#externalLastName').val());
 
         xhttp.send(data);
     }
@@ -554,7 +576,8 @@ function submitNewItemForm() {
 }
 
 function submitReturnItemForm() {
-    $('#return-item-form').form({
+
+    var validationObject = {
         fields: {
             item_return_select: {
                 identifier: 'item-return-select',
@@ -564,7 +587,27 @@ function submitReturnItemForm() {
                 }]
             }
         }
-    });
+    }
+
+    if ($('#externalBorrower').checkbox('is checked')) {
+        validationObject.fields.external_first = {
+            identifier: 'externalFirstName',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please specify the external borrower\'s first name'
+            }]
+        }
+
+        validationObject.fields.external_last = {
+            identifier: 'externalLastName',
+            rules: [{
+                type: 'empty',
+                prompt: 'Please specify the external borrower\'s last name'
+            }]
+        }
+    }
+
+    $('#return-item-form').form(validationObject);
 
     var isFormValid = $('#return-item-form').form('is valid');
 

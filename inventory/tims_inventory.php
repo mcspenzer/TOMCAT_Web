@@ -827,6 +827,23 @@
                         <option value="" disabled selected>Item Name</option>
                     </select>
                 </div>
+                <div class="inline field">
+                    <div class="ui slider checkbox" id="externalBorrower">
+                        <input type="checkbox" tabindex="0" class="hidden">
+                        <label>External Borrower</label>
+                    </div>
+                    <label></label>
+                </div>
+                <div class="fields">
+                    <div class="field disabled" id="externalFirstDisabled">
+                        <label>First name</label>
+                        <input type="text" placeholder="First Name" id="externalFirstName">
+                    </div>
+                    <div class="field disabled" id="externalLastDisabled">
+                        <label>Last name</label>
+                        <input type="text" placeholder="Last Name" id="externalLastName">
+                    </div>
+                </div>
                 <button class="ui button disabled" type="submit" onclick="submitBorrowItemForm()" id="borrow-item-submit">Submit</button>
             </form>
         </div>
@@ -857,6 +874,28 @@
     <script src='../assets/ext/fomatic/semantic.min.js'></script>
     <script src="../assets/js/header-methods.js"></script>
     <script src="../assets/js/inventory/tims_inventory.js"></script>
+
+    <script>
+        $('#externalBorrower')
+            .checkbox({
+                onChecked: function() {
+                    console.log('checked');
+                    $('#externalLastDisabled').removeClass('disabled')
+                    $('#externalFirstDisabled').removeClass('disabled')
+                    $('#externalLastDisabled').addClass('required')
+                    $('#externalFirstDisabled').addClass('required');
+                },
+                onUnchecked: function() {
+                    console.log('unchecked');
+                    $('#externalLastDisabled').addClass('disabled')
+                    $('#externalFirstDisabled').addClass('disabled');
+                    $('#externalLastDisabled').removeClass('required')
+                    $('#externalFirstDisabled').removeClass('required')
+                    $('#externalLastName').val('');
+                    $('#externalFirstName').val('');
+                },
+            });
+    </script>
 </body>
 
 </html>

@@ -20,16 +20,16 @@ if (isset($_GET['borrow'])) {
         $pdf->Cell(30, 10, 'Borrower\'s report', 0, 0, 'C');
 
 
-        $pdf->Ln(25);
+        $pdf->Ln(20);
 
 
-        $pdf->Cell(15);
+        $pdf->Cell(10);
 
         // Column widths
-        $w = array(40, 35, 40, 45);
+        $w = array(15, 35, 35, 40, 45);
 
         // Set headers
-        $headers = array("Log ID", "Item Name", "Borrower", "Date Borrowed");
+        $headers = array("Log ID", "Item Name", "Borrower", "External Borrower", "Date Borrowed");
 
         for ($i = 0; $i < count($headers); $i++) {
             $pdf->Cell($w[$i], 7, $headers[$i], 1, 0, 'C');
@@ -40,10 +40,11 @@ if (isset($_GET['borrow'])) {
 
         $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
 
-        $sql_select = "SELECT b.borrow_log_id, i.item_name, CONCAT(u.user_last_name, ', ', u.user_first_name) AS \"item_borrower\", b.borrow_log_date_modified
-    FROM borrow_log b
-    LEFT JOIN items i ON b.borrow_log_item_borrowed = i.item_id
-    LEFT JOIN users u ON b.borrow_log_borrower = u.user_id";
+        $sql_select = "SELECT b.borrow_log_id, b.borrow_log_date_modified, i.item_name, CONCAT(u.user_last_name, ', ', u.user_first_name) AS \"item_borrower\" , b.borrow_log_item_borrower_external
+        FROM borrow_log b
+        LEFT JOIN items i ON b.borrow_log_item_borrowed = i.item_id
+        LEFT JOIN users u ON b.borrow_log_borrower = u.user_id
+        ORDER BY b.borrow_log_date_created ASC";
 
         $sql_resultSet = mysqli_query($database, $sql_select);
 
@@ -63,11 +64,12 @@ if (isset($_GET['borrow'])) {
 
                 foreach ($jsonArray as $row) {
                     $pdf->Ln();
-                    $pdf->Cell(15);
+                    $pdf->Cell(10);
                     $pdf->Cell($w[0], 6, $row['borrow_log_id'], 1, 0, 'C');
                     $pdf->Cell($w[1], 6, $row['item_name'], 1, 0, 'C');
                     $pdf->Cell($w[2], 6, $row['item_borrower'], 1, 0, 'C');
-                    $pdf->Cell($w[3], 6, $row['borrow_log_date_modified'], 1, 0, 'C');
+                    $pdf->Cell($w[3], 6, $row['borrow_log_item_borrower_external'], 1, 0, 'C');
+                    $pdf->Cell($w[4], 6, $row['borrow_log_date_modified'], 1, 0, 'C');
                     // var_dump($row);
                 }
             }
@@ -91,16 +93,16 @@ if (isset($_GET['borrow'])) {
     $pdf->Cell(30, 10, 'Returner\'s report', 0, 0, 'C');
 
 
-    $pdf->Ln(25);
+    $pdf->Ln(20);
 
 
-    $pdf->Cell(15);
+    $pdf->Cell(10);
 
     // Column widths
-    $w = array(40, 35, 40, 45);
+    $w = array(15, 35, 35, 40, 45);
 
     // Set headers
-    $headers = array("Log ID", "Item Name", "Returner", "Date Returned");
+    $headers = array("Log ID", "Item Name", "Returner", "External Returner", "Date Returned");
 
     for ($i = 0; $i < count($headers); $i++) {
         $pdf->Cell($w[$i], 7, $headers[$i], 1, 0, 'C');
@@ -111,10 +113,11 @@ if (isset($_GET['borrow'])) {
 
     $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
 
-    $sql_select = "SELECT r.return_log_id, i.item_name, CONCAT(u.user_last_name, ', ', u.user_first_name) AS \"item_returner\", r.return_log_date_modified
-    FROM return_log r
-    LEFT JOIN items i ON r.return_log_item_returned = i.item_id
-    LEFT JOIN users u ON r.return_log_item_returner = u.user_id";
+    $sql_select = "SELECT b.return_log_id, b.return_log_date_modified, i.item_name, CONCAT(u.user_last_name, ', ', u.user_first_name) AS \"item_returner\", b.return_log_item_returner_external
+    FROM return_log b
+        LEFT JOIN items i ON b.return_log_item_returned = i.item_id
+        LEFT JOIN users u ON b.return_log_item_returner = u.user_id
+        ORDER BY b.return_log_date_created DESC";
 
     $sql_resultSet = mysqli_query($database, $sql_select);
 
@@ -134,11 +137,12 @@ if (isset($_GET['borrow'])) {
 
             foreach ($jsonArray as $row) {
                 $pdf->Ln();
-                $pdf->Cell(15);
+                $pdf->Cell(10);
                 $pdf->Cell($w[0], 6, $row['return_log_id'], 1, 0, 'C');
                 $pdf->Cell($w[1], 6, $row['item_name'], 1, 0, 'C');
                 $pdf->Cell($w[2], 6, $row['item_returner'], 1, 0, 'C');
-                $pdf->Cell($w[3], 6, $row['return_log_date_modified'], 1, 0, 'C');
+                $pdf->Cell($w[3], 6, $row['return_log_item_returner_external'], 1, 0, 'C');
+                $pdf->Cell($w[4], 6, $row['return_log_date_modified'], 1, 0, 'C');
                 // var_dump($row);
             }
         }
