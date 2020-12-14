@@ -31,7 +31,7 @@
                         Go to Reports
                         <!-- <div class="ui label">51</div> -->
                     </a>
-                    <div class="item">
+                    <div class="item" id="add-new-user-btn">
                         <div class="ui primary button centered" style="margin-left: 1.5em" onclick="createNewUser()"><i class="user plus icon"></i>Add new User</div>
                     </div>
                 </div>
@@ -40,18 +40,19 @@
                 <!-- <div class="ui active inverted dimmer">
                     <div class="ui medium text loader">Loading</div>
                 </div> -->
-                <table class="ui very basic compact collapsing celled table" style="font-size:small">
+                <table class="ui very basic compact sortable collapsing celled table" style="font-size:small" id="users-table">
                     <thead>
                         <tr>
-                            <th>User ID</th>
+                            <th class="sorted ascending">User ID</th>
                             <th>Last Name</th>
                             <th>First Name</th>
                             <th>Position</th>
                             <th>Contact Number</th>
                             <th>E-mail</th>
+                            <th>Role</th>
                             <th>Date created</th>
                             <th>Date modified</th>
-                            <th>Actions</th>
+                            <th id="actions-column">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="users-table-body">
@@ -527,6 +528,23 @@
                                     </div>
                                 </div>
                                 <div class="field required">
+                                    <label>Role</label>
+                                    <div class="ui fluid selection dropdown" id="create-role">
+                                        <i class="dropdown icon"></i>
+                                        <span class="default text">Select Role</span>
+                                        <div class="menu">
+                                            <div class="item" data-value="1">
+                                                <i class="id badge left floated icon"></i>
+                                                Administrator
+                                            </div>
+                                            <div class="item" data-value="2">
+                                                <i class="eye left floated icon"></i>
+                                                Viewer
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field required">
                                     <label>Password</label>
                                     <div class="ui left corner labeled input">
                                         <input required type="password" name="create-password" placeholder="Password" id="create-password">
@@ -665,10 +683,10 @@
     <div class="ui basic modal" id="delete-user-modal">
         <div class="ui icon header">
             <i class="archive icon"></i>
-            <h1>Delete User?</h1>
+            <h1>Archive User?</h1>
         </div>
         <div class="content" id="delete-content">
-            <p>Do you want to delete the following user?: </p>
+            <p>Do you want to Archive the following user?: </p>
         </div>
         <div class="actions">
             <div class="ui basic cancel inverted button" id="cancel-delete">
@@ -677,7 +695,7 @@
             </div>
             <div class="ui red ok inverted button" id="proceed-delete">
                 <i class="checkmark icon"></i>
-                Delete
+                Archive
             </div>
         </div>
     </div>
@@ -688,6 +706,7 @@
     <script src="../assets/js/additional-methods.min.js"></script>
     <script src='../assets/ext/fomatic/semantic.min.js'></script>
     <script src="../assets/js/header-methods.js"></script>
+    <script src='../assets/ext/semantic/tablesort.js'></script>
 
     <script>
         function createNewUser() {
@@ -724,7 +743,7 @@
 
                         var result = JSON.parse(xhttp.responseText);
 
-                        $("#delete-content").html('<h3>Do you want to delete <strong>' + result[0].user_first_name + ' ' + result[0].user_last_name + '</strong>?</h3>');
+                        $("#delete-content").html('<h3>Do you want to archive <strong>' + result[0].user_first_name + ' ' + result[0].user_last_name + '</strong>?</h3>');
 
                         // $("#display-photo-edit").val(result[0].user_display_photo);
 
@@ -766,7 +785,7 @@
 
                         toastObj.message = xhttp.responseText;
 
-                        if (xhttp.responseText == 'User deletion success') {
+                        if (xhttp.responseText == 'User archiving success') {
                             toastObj.class = 'success';
                             toastObj.title = 'Success';
                         }
@@ -1031,7 +1050,7 @@
                         console.log('edit context');
                         target = '#edit-display-photo-preview';
                     }
-                    
+
                     console.log('target result', e.target.result);
                     $(target).attr('src', e.target.result);
                 }
@@ -1132,6 +1151,13 @@
                             }
                         ]
                     },
+                    role: {
+                        identifier: 'create-role',
+                        rules: [{
+                            type: 'empty',
+                            prompt: 'Please specify a role'
+                        }]
+                    }
                 }
             });
 
@@ -1193,6 +1219,7 @@
                 data.append('position', $('#create-position').val());
                 data.append('contact-number', $('#create-contact-number').val());
                 data.append('email', $('#create-email').val());
+                data.append('role', $('#create-role').dropdown('get value'))
                 data.append('password', $('#create-password').val());
                 data.append('confirm-password', $('#create-confirm-password').val());
 
@@ -1220,8 +1247,16 @@
 
                         var appendStr = "";
 
-                        for (var i = 0; i < results.length; i++) {
-                            appendStr += '<tr><td><strong>TC_USER-' + results[i].user_id + '</strong></td><td>' + results[i].user_last_name + '</td><td>' + results[i].user_first_name + '</td><td>' + results[i].user_position + '</td><td>' + results[i].user_contact_number + '</td><td>' + results[i].user_email + '</td><td>' + results[i].user_date_created + '</td><td>' + results[i].user_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editUser(' + results[i].user_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteUser(' + results[i].user_id + ')"></i></span></td></tr>'
+                        var role = sessionStorage.getItem('user_role');
+
+                        if (role == 1) {
+                            for (var i = 0; i < results.length; i++) {
+                                appendStr += '<tr><td><strong>TC_USER-' + results[i].user_id + '</strong></td><td>' + results[i].user_last_name + '</td><td>' + results[i].user_first_name + '</td><td>' + results[i].user_position + '</td><td>' + results[i].user_contact_number + '</td><td>' + results[i].user_email + '</td><td>' + results[i].role_name + '</td><td>' + results[i].user_date_created + '</td><td>' + results[i].user_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editUser(' + results[i].user_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteUser(' + results[i].user_id + ')"></i></span></td></tr>'
+                            }
+                        } else {
+                            for (var i = 0; i < results.length; i++) {
+                                appendStr += '<tr><td><strong>TC_USER-' + results[i].user_id + '</strong></td><td>' + results[i].user_last_name + '</td><td>' + results[i].user_first_name + '</td><td>' + results[i].user_position + '</td><td>' + results[i].user_contact_number + '</td><td>' + results[i].user_email + '</td><td>' + results[i].role_name + '</td><td>' + results[i].user_date_created + '</td><td>' + results[i].user_date_modified + '</tr>';
+                            }
                         }
 
                         // new Date(results[i].user_date_created).toUTCString();
@@ -1342,8 +1377,19 @@
             }
         })
 
+        $("#create-role").dropdown();
+
         $(document).ready(function() {
+            var role = sessionStorage.getItem('user_role');
+
+            if (role == 2) {
+                $("#add-new-user-btn").hide();
+                $("#actions-column").hide();
+            }
+
             getAllUsers();
+
+            $('#users-table').tablesort()
         });
     </script>
 

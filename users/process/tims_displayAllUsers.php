@@ -2,7 +2,7 @@
 
 $database = mysqli_connect('localhost', 'root', '', 'tomcat_web');
 
-$sql_select = "SELECT * FROM users WHERE user_id != -1";
+$sql_select = "SELECT u.*, r.role_name FROM users u LEFT JOIN user_roles r ON u.user_role = r.role_id WHERE user_id != -1 AND user_is_archived != 1";
 
 $sql_resultSet = mysqli_query($database, $sql_select);
 

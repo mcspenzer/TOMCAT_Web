@@ -8,7 +8,7 @@ if (!isset($_POST['user-id'])) {
 
     $userId = mysqli_real_escape_string($database, $_POST['user-id']);
 
-    $sql_delete = "DELETE FROM users WHERE user_id = " . $userId;
+    $sql_delete = "UPDATE users SET user_is_archived = 1 WHERE user_id = " . $userId;
 
     if (mysqli_query($database, $sql_delete)) {
         echo "User deletion success";

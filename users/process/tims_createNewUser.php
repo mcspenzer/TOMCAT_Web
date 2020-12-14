@@ -50,11 +50,16 @@ if (!isset($_FILES['display-photo'])) {
                                 echo "No confirm password";
                                 $_POST = array();
                             } else {
-                                if (mysqli_real_escape_string($database, $_POST['password']) != mysqli_real_escape_string($database, $_POST['confirm-password'])) {
-                                    echo "Password mismatch";
+                                if (!isset($_POST['role'])) {
+                                    echo "No role";
                                     $_POST = array();
                                 } else {
-                                    continueCreation();
+                                    if (mysqli_real_escape_string($database, $_POST['password']) != mysqli_real_escape_string($database, $_POST['confirm-password'])) {
+                                        echo "Password mismatch";
+                                        $_POST = array();
+                                    } else {
+                                        continueCreation();
+                                    }
                                 }
                             }
                         }
@@ -158,11 +163,12 @@ function createUser($target_file)
     $contactNumber = $_POST['contact-number'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $role = $_POST['role'];
     // var_dump($password);
     // $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
     // Calculate a bcrypt hash from a password
-    $hash = trim(PHPassLib\Hash\BCrypt::hash($password, array ('rounds' => 16)));
+    $hash = trim(PHPassLib\Hash\BCrypt::hash($password, array('rounds' => 16)));
 
     // var_dump(mb_check_encoding($hash, 'UTF-8'));
 
@@ -182,10 +188,11 @@ function createUser($target_file)
         user_contact_number, 
         user_email, 
         user_password, 
+        user_role,
         user_display_photo, 
         user_date_created, 
         user_date_modified
-    ) VALUES (?,?,?,?,?,?,?,now(),now())";
+    ) VALUES (?,?,?,?,?,?,?,?,now(),now())";
 
     $stmt = mysqli_stmt_init($database);
 
@@ -193,7 +200,7 @@ function createUser($target_file)
         die(mysqli_error($database));
         $_POST = array();
     } else {
-        mysqli_stmt_bind_param($stmt, "sssssss", $firstName, $lastName, $position, $contactNumber, $email, $hash, $target_file);
+        mysqli_stmt_bind_param($stmt, "ssssssis", $firstName, $lastName, $position, $contactNumber, $email, $hash, $role, $target_file);
     }
 
     if (mysqli_stmt_execute($stmt)) {

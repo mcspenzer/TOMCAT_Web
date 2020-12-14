@@ -7,10 +7,10 @@ if (!isset($_POST['item-id'])) {
 
     $itemId = mysqli_real_escape_string($database, $_POST['item-id']);
 
-    $sql_delete = "DELETE FROM items WHERE item_id = " . $itemId;
+    $sql_delete = "UPDATE items SET item_is_archived = 1 WHERE item_id = " . $itemId;
 
     if (mysqli_query($database, $sql_delete)) {
-        echo "Item deletion success";
+        echo "Item archiving success";
     } else {
         echo "Item update failed: " . mysqli_error($database);
         echo "SQL: " . $sql_update;

@@ -35,7 +35,7 @@
                         Go to Borrower reports
                         <!-- <div class="ui label">51</div> -->
                     </a>
-                    <div class="item">
+                    <div class="item" id="export-btn">
                         <div class="ui primary button centered" style="margin-left: 1.5em" onclick="window.open('http\:\/\/localhost/tomcat_web/reports/process/tims_exportToPDF.php?','_blank');"><i class="file pdf icon"></i>Export to PDF</div>
                     </div>
                 </div>
@@ -231,6 +231,12 @@
 
     <script>
         $(document).ready(function() {
+            var role = sessionStorage.getItem('user_role');
+
+            if (role == 2) {
+                $('#export-btn').hide();
+            }
+
             getAllReturnReports();
         });
     </script>

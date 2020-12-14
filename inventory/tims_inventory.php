@@ -31,28 +31,29 @@
                         Go to Reports
                         <!-- <div class="ui label">51</div> -->
                     </a>
-                    <div class="item">
+                    <div class="item" id="borrow-item-btn">
                         <div class="ui secondary button centered" style="margin-left: 1.5em" onclick="borrowItem()"><i class="dolly icon"></i>Borrow Item&nbsp;&nbsp;&nbsp;</div>
                         <div class="ui button centered" style="margin-left: 1.5em;margin-top: 1em" onclick="returnItem()"><i class="warehouse icon"></i>Return Item&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     </div>
-                    <div class="item">
+                    <div class="item" id="add-item-btn">
                         <div class="ui primary button centered green" style="margin-left: 1.5em" onclick="createNewItem()"><i class="box icon"></i>Add new Item</div>
                     </div>
                 </div>
             </div>
             <div class="thirteen wide column">
-                <table class="ui very basic compact collapsing celled table" style="font-size:small">
+                <table class="ui very basic compact collapsing celled table sortable" style="font-size:small" id="items-table">
                     <thead>
                         <tr>
                             <th>Item ID</th>
-                            <th>Serial Number</th>
+                            <th class="sorted ascending">Serial Number</th>
                             <th>Item Name</th>
                             <th>Type</th>
                             <th>Status</th>
                             <th>Owner</th>
+                            <th>Remarks</th>
                             <th>Date created</th>
                             <th>Date modified</th>
-                            <th>Actions</th>
+                            <th id="actions-column">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="items-table-body">
@@ -752,6 +753,10 @@
                         <option value="" disabled selected>Lastname, Firstname</option>
                     </select>
                 </div>
+                <div class="field">
+                    <label>Item Remarks</label>
+                    <textarea rows="3" id="item-remarks"></textarea>
+                </div>
                 <button class="ui button" type="submit" onclick="submitNewItemForm()" id="new-item-submit">Submit</button>
             </form>
         </div>
@@ -797,10 +802,10 @@
     <div class="ui basic modal" id="delete-item-modal">
         <div class="ui icon header">
             <i class="archive icon"></i>
-            <h1>Delete Item?</h1>
+            <h1>Archive Item?</h1>
         </div>
         <div class="content" id="delete-content">
-            <p>Do you want to delete the following item?: </p>
+            <p>Do you want to archive the following item?: </p>
         </div>
         <div class="actions">
             <div class="ui basic cancel inverted button" id="cancel-delete">
@@ -809,7 +814,7 @@
             </div>
             <div class="ui red ok inverted button" id="proceed-delete">
                 <i class="checkmark icon"></i>
-                Delete
+                Archive
             </div>
         </div>
     </div>
@@ -873,7 +878,8 @@
     <script src="../assets/js/additional-methods.min.js"></script>
     <script src='../assets/ext/fomatic/semantic.min.js'></script>
     <script src="../assets/js/header-methods.js"></script>
-    <script src="../assets/js/inventory/tims_inventory.js"></script>
+    <script src="../assets/js/inventory/tims_inventory.js?ver<%=DateTime.Now.Ticks.ToString()%>"></script>
+    <script src='../assets/ext/semantic/tablesort.js'></script>
 
     <script>
         $('#externalBorrower')
@@ -895,6 +901,21 @@
                     $('#externalFirstName').val('');
                 },
             });
+    </script>
+    <script>
+        $(document).ready(function() {
+            var role = sessionStorage.getItem('user_role');
+
+            console.log('role id', role)
+
+            if (role == 2) {
+                $('#borrow-item-btn').hide();
+                $('#add-item-btn').hide();
+                $("#actions-column").hide();
+            }
+
+            $("#items-table").tablesort()
+        })
     </script>
 </body>
 

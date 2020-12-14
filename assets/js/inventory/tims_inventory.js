@@ -201,18 +201,30 @@ function editItem(itemId) {
 }
 
 function getAllItems() {
+    console.log('getAllItems')
     var xhttp = new XMLHttpRequest();
 
     xhttp.onload = (e) => {
         if (xhttp.readyState === 4) {
             if (xhttp.status === 200) {
+                console.log(xhttp.responseText);
 
                 var results = JSON.parse(xhttp.responseText);
 
                 var appendStr = "";
 
-                for (var i = 0; i < results.length; i++) {
-                    appendStr += '<tr><td><strong>TC_ITEM-' + results[i].item_id + '</strong></td><td>' + results[i].item_serial_number + '</td><td>' + results[i].item_name + '</td><td>' + results[i].item_type + '</td><td>' + results[i].item_status + '</td><td>' + results[i].item_owner + '</td><td>' + results[i].item_date_created + '</td><td>' + results[i].item_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editItem(' + results[i].item_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteItem(' + results[i].item_id + ')"></i></span></td></tr>'
+                var role = sessionStorage.getItem('user_role');
+
+                if (role == 1) {
+                    console.log('Administrator');
+                    for (var i = 0; i < results.length; i++) {
+                        appendStr += '<tr><td><strong>TC_ITEM-' + results[i].item_id + '</strong></td><td>' + results[i].item_serial_number + '</td><td>' + results[i].item_name + '</td><td>' + results[i].item_type + '</td><td>' + results[i].item_status + '</td><td>' + results[i].item_owner + '</td><td>' + results[i].item_remarks + '</td><td>' + results[i].item_date_created + '</td><td>' + results[i].item_date_modified + '</td><td><span><i class="pencil alternate centered icon" style="cursor: pointer;" onclick="editItem(' + results[i].item_id + ')"></i>| <i class="trash alternate centered icon" style="cursor: pointer;" onclick="deleteItem(' + results[i].item_id + ')"></i></span></td></tr>'
+                    }
+                } else {
+                    console.log('Viewer');
+                    for (var i = 0; i < results.length; i++) {
+                        appendStr += '<tr><td><strong>TC_ITEM-' + results[i].item_id + '</strong></td><td>' + results[i].item_serial_number + '</td><td>' + results[i].item_name + '</td><td>' + results[i].item_type + '</td><td>' + results[i].item_status + '</td><td>' + results[i].item_owner + '</td><td>' + results[i].item_remarks + '</td><td>' + results[i].item_date_created + '</td><td>' + results[i].item_date_modified + '</td></tr>'
+                    }
                 }
 
                 // new Date(results[i].user_date_created).toUTCString();
@@ -358,7 +370,7 @@ function submitDeleteItemForm(itemId) {
 
                 toastObj.message = xhttp.responseText;
 
-                if (xhttp.responseText == 'Item deletion success') {
+                if (xhttp.responseText == 'Item archiving success') {
                     toastObj.class = 'success';
                     toastObj.title = 'Success';
                 }
@@ -568,6 +580,7 @@ function submitNewItemForm() {
         data.append('item-name', $('#item-name').val());
         data.append('item-type', $('#item-type').val());
         data.append('item-owner', $('#item-owner-select').dropdown('get value'));
+        data.append('item-remarks', $("#item-remarks").val());
 
         // xhttp.setRequestHeader('Content-type', 'multipart/form-data; boundary="---------------------------168261202239157867303724621122"');
 

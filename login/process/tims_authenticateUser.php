@@ -47,6 +47,7 @@ if (!isset($_POST['user-email'])) {
                     $jsonArray['user_last_name'] = $row['user_last_name'];
                     $jsonArray['user_email'] = $row['user_email'];
                     $jsonArray['user_display_photo'] = $row['user_display_photo'];
+                    $jsonArray['user_role'] = $row['user_role'];
 
                     echo json_encode($jsonArray);
                 } else {
