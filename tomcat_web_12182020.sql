@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `borrow_log` (
   PRIMARY KEY (`borrow_log_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table tomcat_web.borrow_log: ~12 rows (approximately)
+-- Dumping data for table tomcat_web.borrow_log: ~13 rows (approximately)
 DELETE FROM `borrow_log`;
 /*!40000 ALTER TABLE `borrow_log` DISABLE KEYS */;
 INSERT INTO `borrow_log` (`borrow_log_id`, `borrow_log_item_borrowed`, `borrow_log_borrower`, `borrow_log_date_created`, `borrow_log_date_modified`, `borrow_log_item_borrower_external`) VALUES
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `resets` (
   PRIMARY KEY (`reset_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Dumping data for table tomcat_web.resets: ~1 rows (approximately)
+-- Dumping data for table tomcat_web.resets: ~2 rows (approximately)
 DELETE FROM `resets`;
 /*!40000 ALTER TABLE `resets` DISABLE KEYS */;
 INSERT INTO `resets` (`reset_id`, `reset_email`, `reset_selector`, `reset_token`, `reset_expiry`) VALUES
