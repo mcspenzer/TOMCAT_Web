@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/ext/semantic/semantic.min.css" />
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to bottom, white, rgba(255,255,204,1))"> 
 
     <?php require '../html/tims_header.php'; ?>
 

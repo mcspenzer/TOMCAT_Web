@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/ext/fomatic/semantic.min.css">
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to bottom, white, rgba(255,255,204,1))"> 
     <?php require '../html/tims_header.php'; ?>
 
     <h2 class="ui header" style="margin-top: 5em;margin-left: 2em">
