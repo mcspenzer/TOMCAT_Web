@@ -1,3 +1,10 @@
+<?php 
+    header("Location: ../users/tims_users.php");
+    exit();
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
