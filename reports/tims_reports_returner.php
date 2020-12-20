@@ -38,6 +38,12 @@
                     <div class="item" id="export-btn">
                         <div class="ui primary button centered" style="margin-left: 1.5em" onclick="window.open('http\:\/\/localhost/tomcat_web/reports/process/tims_exportToPDF.php?','_blank');"><i class="file pdf icon"></i>Export to PDF</div>
                     </div>
+                    <div class="item">
+                        <div class="ui slider checkbox" id='calendar-slider'>
+                            <input type="checkbox" name="throughput" checked="checked">
+                            <label>Show Calendar</label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="eight wide column">
@@ -175,7 +181,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="three wide column" style="pointer-events: none;">
+            <div class="three wide column" style="pointer-events: none;" id="calendar-af">
                 <div class="ui calendar" id="inline_calendar">
                 </div>
             </div>
@@ -238,6 +244,15 @@
             }
 
             getAllReturnReports();
+
+            $('#calendar-slider').checkbox({
+                onChecked: function() {
+                    $('#calendar-af').show()
+                },
+                onUnchecked: function() {
+                    $('#calendar-af').hide()
+                },
+            })
         });
     </script>
     <script>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/ext/fomatic/semantic.min.css">
 </head>
 
-<body style="background-image: linear-gradient(to bottom, white, rgba(255,255,204,1))"> 
+<body style="background-image: linear-gradient(to bottom, white, rgba(255,255,204,1))">
     <?php require '../html/tims_header.php'; ?>
 
     <h2 class="ui header" style="margin-top: 5em;margin-left: 2em">
@@ -33,10 +33,16 @@
                     </a>
                     <a class="item" href="../reports/tims_reports_returner.php">
                         Go to Returner reports
-                        <!-- <div class="ui label">51</div> -->     
+                        <!-- <div class="ui label">51</div> -->
                     </a>
                     <div class="item" id="export-btn">
                         <div class="ui primary button centered" style="margin-left: 1.5em" onclick="window.open('http\:\/\/localhost/tomcat_web/reports/process/tims_exportToPDF.php?borrow=T','_blank');"><i class="file pdf icon"></i>Export to PDF</div>
+                    </div>
+                    <div class="item">
+                        <div class="ui slider checkbox" id='calendar-slider'>
+                            <input type="checkbox" name="throughput" checked="checked">
+                            <label>Show Calendar</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,7 +181,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="three wide column" style="pointer-events: none;">
+            <div class="three wide column" style="pointer-events: none;" id="calendar-af">
                 <div class="ui calendar" id="inline_calendar">
                 </div>
             </div>
@@ -238,6 +244,15 @@
             }
 
             getAllBorrowReports();
+
+            $('#calendar-slider').checkbox({
+                onChecked: function() {
+                    $('#calendar-af').show()
+                },
+                onUnchecked: function() {
+                    $('#calendar-af').hide()
+                },
+            })
         });
     </script>
     <script>
